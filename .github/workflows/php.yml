@@ -29,7 +29,7 @@ jobs:
     - name: Set up PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.0' # or any other version you are using
+        php-version: '8.3.9' # or any other version you are using
         extensions: mbstring, intl, bcmath
         ini-values: post_max_size=256M, max_execution_time=300
         coverage: xdebug

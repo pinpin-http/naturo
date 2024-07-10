@@ -2,17 +2,34 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "dev": "vite",
-        "build": "vite build"
+      "dev": "mix --mix-config=webpack.mix.cjs",
+      "development": "mix --mix-config=webpack.mix.cjs",
+      "watch": "mix watch --mix-config=webpack.mix.cjs",
+      "hot": "mix watch --hot --mix-config=webpack.mix.cjs",
+      "prod": "mix --production --mix-config=webpack.mix.cjs",
+      "production": "mix --production --mix-config=webpack.mix.cjs"
     },
     "devDependencies": {
-        "@tailwindcss/forms": "^0.5.2",
-        "alpinejs": "^3.4.2",
-        "autoprefixer": "^10.4.2",
-        "axios": "^1.6.4",
-        "laravel-vite-plugin": "^1.0",
-        "postcss": "^8.4.31",
-        "tailwindcss": "^3.1.0",
-        "vite": "^5.0"
+      "@tailwindcss/forms": "^0.5.2",
+      "alpinejs": "^3.4.2",
+      "autoprefixer": "^10.4.2",
+      "axios": "^1.6.4",
+      "laravel-mix": "^6.0.49",
+      "laravel-vite-plugin": "^1.0",
+      "postcss": "^8.4.31",
+      "tailwindcss": "^3.1.0",
+      "vite": "^5.0"
+    },
+    "dependencies": {
+      "@popperjs/core": "^2.11.8",
+      "animate.css": "^4.1.1",
+      "bootstrap": "^5.3.3",
+      "counterup2": "^2.0.2",
+      "jquery": "^3.7.1",
+      "jquery.easing": "^1.4.1",
+      "owl.carousel": "^2.3.4",
+      "tempusdominus-bootstrap-4": "^5.39.2",
+      "waypoints": "^4.0.1"
     }
-}
+  }
+  

@@ -1,12 +1,12 @@
 
 <head>
     <meta charset="utf-8">
-    <title>SPA Center - Beauty & Spa HTML Template</title>
+    <title>Wanitacare - Naturopathe</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
 
     <!-- Favicon -->
-    <link href="{{ asset('images/favicon.ico') }}" rel="icon">
+    <link href="{{ asset('images/favicon.ico') }}" rel="icon"> <!-- LOGO A INCLURE -->
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -24,9 +24,9 @@
         <div class="row py-2 px-lg-5">
             <div class="col-lg-6 text-left mb-2 mb-lg-0">
                 <div class="d-inline-flex align-items-center">
-                    <small><i class="fa fa-phone-alt mr-2"></i>+012 345 6789</small>
+                    <small><i class="fa fa-phone-alt mr-2"></i>+33 1 23 45 67 89</small>
                     <small class="px-3">|</small>
-                    <small><i class="fa fa-envelope mr-2"></i>info@example.com</small>
+                    <small><i class="fa fa-envelope mr-2"></i>mama@example.com</small>
                 </div>
             </div>
             <div class="col-lg-6 text-right">

@@ -2,8 +2,9 @@
 <div class="container-fluid p-0">
     <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0 px-lg-5">
         <a href="{{ url('/') }}" class="navbar-brand ml-lg-3">
-            <h1 class="m-0 text-primary"><span class="text-dark">SPA</span> Center</h1> <!-- A CHANGER PAR LE LOGO-->
+            <img src="/images/frontoffice/horizontalWanita.png" alt="SPA Center Logo" class="logo">
         </a>
+
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>

@@ -6162,6 +6162,10 @@ button.bg-warning:focus {
 .bg-danger {
   background-color: #dc3545 !important;
 }
+.logo {
+  max-height: 100px; /* Ajustez cette valeur selon vos besoins */
+  height: auto;
+}
 
 a.bg-danger:hover, a.bg-danger:focus,
 button.bg-danger:hover,

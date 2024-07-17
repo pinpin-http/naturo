@@ -11,9 +11,9 @@
         <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
             <div class="navbar-nav m-auto py-0">
                 <a href="{{ url('/') }}" class="nav-item nav-link {{ request()->is('/') ? 'active-page' : '' }}">Home</a>
-                <a href="{{ url('/about') }}" class="nav-item nav-link {{ request()->is('about') ? 'active-page' : '' }}">About</a>
-                <a href="{{ url('/service') }}" class="nav-item nav-link {{ request()->is('service') ? 'active-page' : '' }}">Services</a>
-                <a href="{{ url('/price') }}" class="nav-item nav-link {{ request()->is('price') ? 'active-page' : '' }}">Pricing</a>   
+                <a href="{{ url('/about') }}" class="nav-item nav-link {{ request()->is('about') ? 'active-page' : '' }}">Naturo</a>
+                <a href="{{ url('/service') }}" class="nav-item nav-link {{ request()->is('service') ? 'active-page' : '' }}">Blog</a>
+                <a href="{{ url('/price') }}" class="nav-item nav-link {{ request()->is('price') ? 'active-page' : '' }}">Tarifs</a>   
                 <a href="{{ url('/contact') }}" class="nav-item nav-link {{ request()->is('contact') ? 'active-page' : '' }}">Contact</a>
             </div>
             <a href="" class="btn btn-primary d-none d-lg-block">Book Now</a>

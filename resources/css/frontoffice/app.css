@@ -5333,6 +5333,8 @@ a.close.disabled {
   pointer-events: none;
 }
 
+
+
 .toast {
   flex-basis: 350px;
   max-width: 350px;
@@ -5901,10 +5903,11 @@ a.close.disabled {
 }
 
 .carousel-fade .carousel-item {
-  opacity: 0;
+  opacity: 1;
   transition-property: opacity;
   transform: none;
 }
+
 
 .carousel-fade .carousel-item.active,
 .carousel-fade .carousel-item-next.carousel-item-left,
@@ -9563,9 +9566,27 @@ h6,
     padding: 10px 15px;
   }
 }
+.title-container {
+  text-align: center; /* Centre le titre et la barre */
+  margin-bottom: 20px; /* Ajuste l'espacement selon vos besoins */
+}
+
+.stylized-title {
+  font-size: 2rem; /* Ajustez la taille du titre selon vos besoins */
+  margin-bottom: 10px; /* Espacement entre le titre et la barre */
+  position: relative;
+}
+
+.underline-bar {
+  width: 60%; /* Largeur de la barre */
+  height: 5px; /* Hauteur de la barre */
+  background-color: #94A16C; /* Couleur de la barre */
+  margin: 0 auto; /* Centre la barre */
+  margin-bottom: 3%;
+  border-radius: 5px; /* Coins arrondis de la barre */
+}
 
 .carousel-indicators li {
-  width: 25px;
   height: 25px;
   margin: 0 5px 10px 5px;
   background: transparent;
@@ -9574,7 +9595,7 @@ h6,
 }
 
 .carousel-indicators .active {
-  width: 50px;
+  width: 50px;  
   background: #FFFFFF;
 }
 
@@ -9583,7 +9604,7 @@ h6,
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(33, 30, 28, 0.7);
+  background: rgba(33, 30, 28, 0.4);
   z-index: 1;
 }
 
@@ -9614,21 +9635,6 @@ h6,
 
 .service-item:hover .service-text {
   height: calc(100% + 40px);
-}
-
-.bg-appointment {
-  background: linear-gradient(rgba(33, 30, 28, 0.7), rgba(33, 40, 28, 0.7)), url(/images/frontoffice/carousel-1.jpg), no-repeat center center;
-  background-size: cover;
-}
-
-.bg-pricing {
-  background: linear-gradient(rgba(33, 30, 28, 0.7), rgba(33, 40, 28, 0.7)), url(/images/frontoffice/carousel-2.jpg), no-repeat center center;
-  background-size: cover;
-}
-
-.bg-jumbotron {
-  background: linear-gradient(rgba(33, 30, 28, 0.7), rgba(33, 40, 28, 0.7)), url(/images/frontoffice/carousel-3.jpg), no-repeat center center;
-  background-size: cover;
 }
 
 @media (min-width: 992px) {

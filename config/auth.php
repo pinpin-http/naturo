@@ -34,6 +34,7 @@ return [
     | Supported: "session"
     |
     */
+'redirect_to_login' => '/backoffice/login',
 
     'guards' => [
         'web' => [

@@ -13,6 +13,8 @@ return [
     |
     */
 
+    
+
     'name' => env('APP_NAME', 'Laravel'),
 
     /*
@@ -123,4 +125,16 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+
+  /*
+    |--------------------------------------------------------------------------
+    | providers
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
+/*    'providers' => [
+    LaravelFrontendPresets\ArgonPreset\ArgonPresetServiceProvider::class,
+    ],
+*/
 ];

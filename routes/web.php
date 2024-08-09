@@ -1,13 +1,12 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backoffice;
 
-
-
+// Routes Frontoffice
 Route::get('/', function () {
     return view('frontoffice.index');
-});
+})->name('home');
 
 Route::get('/about', function () {
     return view('frontoffice.about');
@@ -37,14 +36,20 @@ Route::get('/price', function () {
     return view('frontoffice.price');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+//AUTHENTIFICATION
+Route::get('/login', [Backoffice\LoginController::class, 'show'])->name('login');
+Route::post('/login', [Backoffice\LoginController::class, 'login'])->name('login.perform');
+
+Route::get('/register', [RegisterController::class, 'show'])->name('register');
+Route::post('/register', [RegisterController::class, 'register']);
+
+Route::get('/forgot-password', [ResetPassword::class, 'show'])->name('reset-password');
+Route::post('/forgot-password', [ResetPassword::class, 'send'])->name('password.email');
+
+
+
+Route::middleware(['auth'])->prefix('backoffice')->group(function () {
+    Route::get('/dashboard', [Backoffice\DashboardController::class, 'index'])->name('backoffice.dashboard');
+    // Ajoutez d'autres routes ici
 });
-
-require __DIR__.'/auth.php';

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="utf-8" />
@@ -7,18 +7,21 @@
     <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-icon.png">
     <link rel="icon" type="image/png" href="/img/favicon.png">
     <title>
-        Argon Dashboard 2 by Creative Tim
-    </title>
+Dashboard    </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Nucleo Icons -->
-    <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
+    
+    <!--  <link href="./css/nucleo-icons.css" rel="stylesheet" />
     <link href="./assets/css/nucleo-svg.css" rel="stylesheet" />
-    <!-- Font Awesome Icons -->
+    -->
+    
+    <!-- Font Awesome Icons 
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="assets/css/nucleo-svg.css" rel="stylesheet" />-->
+    
     <!-- CSS Files -->
-    <link id="pagestyle" href="assets/css/argon-dashboard.css" rel="stylesheet" />
+    <link id="pagestyle" href="css/backoffice/app.css" rel="stylesheet" />
 </head>
 
 <body class="{{ $class ?? '' }}">
@@ -47,10 +50,10 @@
     @endauth
 
     <!--   Core JS Files   -->
-    <script src="assets/js/core/popper.min.js"></script>
-    <script src="assets/js/core/bootstrap.min.js"></script>
-    <script src="assets/js/plugins/perfect-scrollbar.min.js"></script>
-    <script src="assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="js/backoffice/popper.min.js"></script>
+    <script src="js/backoffice/bootstrap.min.js"></script>
+    <script src="js/backoffice/perfect-scrollbar.min.js"></script>
+    <script src="js/backoffice/smooth-scrollbar.min.js"></script>
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -63,7 +66,7 @@
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="assets/js/argon-dashboard.js"></script>
+    <script src="js/backoffice/app.js"></script>
     @stack('js');
 </body>
 

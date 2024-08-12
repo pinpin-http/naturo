@@ -16,7 +16,7 @@
                 <a href="{{ url('/price') }}" class="nav-item nav-link {{ request()->is('price') ? 'active-page' : '' }}">Tarifs</a>   
                 <a href="{{ url('/contact') }}" class="nav-item nav-link {{ request()->is('contact') ? 'active-page' : '' }}">Contact</a>
             </div>
-            <a href="" class="btn btn-primary d-none d-lg-block">Book Now</a>
+            <a href="{{ url('/login') }}" class="btn btn-primary d-none d-lg-block">Connexion/Inscription</a>
         </div>
     </nav>
 </div>

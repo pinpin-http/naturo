@@ -18524,6 +18524,19 @@ return jQuery;
 
 /***/ }),
 
+/***/ "./resources/scss/backoffice/app.scss":
+/*!********************************************!*\
+  !*** ./resources/scss/backoffice/app.scss ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./resources/css/frontoffice/app.css":
 /*!*******************************************!*\
   !*** ./resources/css/frontoffice/app.css ***!
@@ -26418,7 +26431,8 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
 /******/ 			"/js/frontoffice/app": 0,
-/******/ 			"css/frontoffice/app": 0
+/******/ 			"css/frontoffice/app": 0,
+/******/ 			"scss/backoffice/argon-dashboard": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -26468,8 +26482,9 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/frontoffice/app"], () => (__webpack_require__("./resources/js/frontoffice/app.js")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/frontoffice/app"], () => (__webpack_require__("./resources/css/frontoffice/app.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/frontoffice/app","scss/backoffice/argon-dashboard"], () => (__webpack_require__("./resources/js/frontoffice/app.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/frontoffice/app","scss/backoffice/argon-dashboard"], () => (__webpack_require__("./resources/scss/backoffice/app.scss")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/frontoffice/app","scss/backoffice/argon-dashboard"], () => (__webpack_require__("./resources/css/frontoffice/app.css")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

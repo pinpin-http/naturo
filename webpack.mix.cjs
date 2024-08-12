@@ -7,9 +7,16 @@ mix.js('resources/js/frontoffice/app.js', 'public/js/frontoffice')
    .css('resources/css/frontoffice/app.css', 'public/css/frontoffice');
 
 // Compiler les fichiers CSS et JS pour le backoffice
-mix.js('resources/js/backoffice/app.js', 'public/js/backoffice')
-   .css('resources/css/backoffice/app.css', 'public/css/backoffice');
+mix.js('resources/js/backoffice/app,.js', 'public/js/backoffice/app.js')
+    .sass('resources/scss/backoffice/app.scss', 'public/scss/backoffice/argon-dashboard.css', [ ]);
+//Compilation des dependances pour le dashborard
+mix.js('resources/js/backoffice/bootstrap.min.js','public/js/backoffice/bootstrap.min.js');
+mix.js('resources/js/backoffice/perfect-scrollbar.min.js','public/js/backoffice/perfect-scrollbar.min.js');
+mix.js('resources/js/backoffice/popper.min.js','public/js/backoffice/popper.min.js');
+mix.js('resources/js/backoffice/smooth-scrollbar.min.js','public/js/backoffice/smooth-scrollbar.min.js');
 
+
+mix.copyDirectory('resources/scss/backoffice/argon-dashboard','public/scss/backoffice');
 // Copier les images pour le frontoffice
 mix.copyDirectory('resources/images/frontoffice', 'public/images/frontoffice');
 

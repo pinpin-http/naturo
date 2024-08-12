@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.backoffice.app')
 
 @section('content')
     <div class="container position-sticky z-index-sticky top-0">

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.backoffice.app')
 
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'User Management'])

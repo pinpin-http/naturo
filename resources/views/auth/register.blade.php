@@ -1,7 +1,7 @@
 @extends('layouts.backoffice.app')
 
 @section('content')
-    @include('layouts.navbars.guest.navbar')
+    @include('layouts.backoffice.navbars.guest.navbar')
     <main class="main-content  mt-0">
         <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg"
             style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signup-cover.jpg'); background-position: top;">
@@ -82,39 +82,62 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('register.perform') }}">
-                                @csrf
-                                <div class="flex flex-col mb-3">
-                                    <input type="text" name="username" class="form-control" placeholder="Username" aria-label="Name" value="{{ old('username') }}" >
-                                    @error('username') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
-                                </div>
-                                <div class="flex flex-col mb-3">
-                                    <input type="email" name="email" class="form-control" placeholder="Email" aria-label="Email" value="{{ old('email') }}" >
-                                    @error('email') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
-                                </div>
-                                <div class="flex flex-col mb-3">
-                                    <input type="password" name="password" class="form-control" placeholder="Password" aria-label="Password">
-                                    @error('password') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
-                                </div>
-                                <div class="form-check form-check-info text-start">
-                                    <input class="form-check-input" type="checkbox" name="terms" id="flexCheckDefault" >
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        I agree the <a href="javascript:;" class="text-dark font-weight-bolder">Terms and
-                                            Conditions</a>
-                                    </label>
-                                    @error('terms') <p class='text-danger text-xs'> {{ $message }} </p> @enderror
-                                </div>
-                                <div class="text-center">
-                                    <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign up</button>
-                                </div>
-                                <p class="text-sm mt-3 mb-0">Already have an account? <a href="{{ route('login') }}"
-                                        class="text-dark font-weight-bolder">Sign in</a></p>
-                            </form>
-                        </div>
+    <form method="POST" action="{{ route('register.perform') }}">
+        @csrf
+
+        <!-- First Name -->
+        <div class="flex flex-col mb-3">
+            <input type="text" name="firstname" class="form-control" placeholder="First Name" aria-label="First Name" value="{{ old('firstname') }}" >
+            @error('firstname') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+        </div>
+
+        <!-- Last Name -->
+        <div class="flex flex-col mb-3">
+            <input type="text" name="lastname" class="form-control" placeholder="Last Name" aria-label="Last Name" value="{{ old('lastname') }}" >
+            @error('lastname') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+        </div>
+
+        <!-- Username -->
+        <div class="flex flex-col mb-3">
+            <input type="text" name="username" class="form-control" placeholder="Username" aria-label="Username" value="{{ old('username') }}" >
+            @error('username') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+        </div>
+
+        <!-- Email -->
+        <div class="flex flex-col mb-3">
+            <input type="email" name="email" class="form-control" placeholder="Email" aria-label="Email" value="{{ old('email') }}" >
+            @error('email') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+        </div>
+
+        <!-- Password -->
+        <div class="flex flex-col mb-3">
+            <input type="password" name="password" class="form-control" placeholder="Password" aria-label="Password">
+            @error('password') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+        </div>
+
+        <!-- Terms and Conditions -->
+        <div class="form-check form-check-info text-start">
+            <input class="form-check-input" type="checkbox" name="terms" id="flexCheckDefault" >
+            <label class="form-check-label" for="flexCheckDefault">
+                I agree to the <a href="javascript:;" class="text-dark font-weight-bolder">Terms and Conditions</a>
+            </label>
+            @error('terms') <p class='text-danger text-xs'> {{ $message }} </p> @enderror
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center">
+            <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign up</button>
+        </div>
+
+        <!-- Already have an account? -->
+        <p class="text-sm mt-3 mb-0">Already have an account? <a href="{{ route('login') }}" class="text-dark font-weight-bolder">Sign in</a></p>
+    </form>
+</div>
+
                     </div>
                 </div>
             </div>
         </div>
     </main>
-    @include('layouts.footers.guest.footer')
+    @include('layouts.backoffice.footers.guest.footer')
 @endsection

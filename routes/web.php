@@ -41,11 +41,16 @@ Route::get('/price', function () {
 Route::get('/login', [Backoffice\LoginController::class, 'show'])->name('login');
 Route::post('/login', [Backoffice\LoginController::class, 'login'])->name('login.perform');
 
-Route::get('/register', [RegisterController::class, 'show'])->name('register');
-Route::post('/register', [RegisterController::class, 'register']);
 
-Route::get('/forgot-password', [ResetPassword::class, 'show'])->name('reset-password');
-Route::post('/forgot-password', [ResetPassword::class, 'send'])->name('password.email');
+// Affiche le formulaire d'inscription
+Route::get('/register', [Backoffice\RegisterController::class, 'create'])->name('register');
+// Gère la soumission du formulaire d'inscription
+Route::post('/register', [Backoffice\RegisterController::class, 'store'])->name('register.perform');
+
+
+
+Route::get('/forgot-password', [Backoffice\ResetPassword::class, 'create'])->name('reset-password');
+Route::post('/forgot-password', [Backoffice\ResetPassword::class, 'send'])->name('password.email');
 
 
 

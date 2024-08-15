@@ -54,9 +54,17 @@ Route::post('/forgot-password', [Backoffice\ResetPassword::class, 'send'])->name
 
 Route::post('/logout', [Backoffice\LoginController::class, 'logout'])->name('logout');
 
+//routes du backoffice
 
 
 Route::middleware(['auth'])->prefix('backoffice')->group(function () {
     Route::get('/dashboard', [Backoffice\HomeController::class, 'index'])->name('backoffice.dashboard');
-    // Ajoutez d'autres routes ici
+    Route::get('/profile',[Backoffice\HomeController::class, 'show'])->name('profile');
+
+    Route::get('/page/{page}', [Backoffice\PageController::class, 'index'])->name('page');
+    Route::get('/virtual-reality', [Backoffice\PageController::class, 'vr'])->name('page.vr');
+    Route::get('/rtl', [Backoffice\PageController::class, 'rtl'])->name('page.rtl');
+    Route::get('/profile', [Backoffice\PageController::class, 'profile'])->name('page.profile');
+    Route::get('/sign-in', [Backoffice\PageController::class, 'signin'])->name('page.signin');
+    Route::get('/sign-up', [Backoffice\PageController::class, 'signup'])->name('page.signup');
 });

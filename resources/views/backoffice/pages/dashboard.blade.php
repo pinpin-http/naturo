@@ -1,7 +1,7 @@
 @extends('layouts.backoffice.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'Dashboard'])
+    @include('layouts.backoffice.navbars.auth.topnav', ['title' => 'Dashboard'])
     <div class="container-fluid py-4">
         <div class="row">
             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">

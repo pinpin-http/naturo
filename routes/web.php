@@ -52,9 +52,11 @@ Route::post('/register', [Backoffice\RegisterController::class, 'store'])->name(
 Route::get('/forgot-password', [Backoffice\ResetPassword::class, 'create'])->name('reset-password');
 Route::post('/forgot-password', [Backoffice\ResetPassword::class, 'send'])->name('password.email');
 
+Route::post('/logout', [Backoffice\LoginController::class, 'logout'])->name('logout');
+
 
 
 Route::middleware(['auth'])->prefix('backoffice')->group(function () {
-    Route::get('/dashboard', [Backoffice\DashboardController::class, 'index'])->name('backoffice.dashboard');
+    Route::get('/dashboard', [Backoffice\HomeController::class, 'index'])->name('backoffice.dashboard');
     // Ajoutez d'autres routes ici
 });

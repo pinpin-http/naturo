@@ -32,7 +32,7 @@
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div>
-                                                    <img src="/img/team-2.jpg" class="avatar avatar-sm me-3"
+                                                    <img src="../images/backoffice/team-2.jpg" class="avatar avatar-sm me-3"
                                                         alt="user1">
                                                 </div>
                                                 <div class="d-flex flex-column justify-content-center">
@@ -152,7 +152,7 @@
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div>
-                                                    <img src="/img/team-2.jpg" class="avatar avatar-sm me-3"
+                                                    <img src="../images/backoffice/team-2.jpg" class="avatar avatar-sm me-3"
                                                         alt="user5">
                                                 </div>
                                                 <div class="d-flex flex-column justify-content-center">
@@ -245,7 +245,7 @@
                                         <td>
                                             <div class="d-flex px-2">
                                                 <div>
-                                                    <img src="/img/small-logos/logo-spotify.svg"
+                                                    <img src="../images/backoffice/small-logos/logo-spotify.svg"
                                                         class="avatar avatar-sm rounded-circle me-2" alt="spotify">
                                                 </div>
                                                 <div class="my-auto">

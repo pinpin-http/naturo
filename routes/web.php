@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backoffice;
+use App\Http\Middleware\RedirectIfAuthenticated;
 
 // Routes Frontoffice
 Route::get('/', function () {
@@ -36,30 +37,26 @@ Route::get('/price', function () {
     return view('frontoffice.price');
 });
 
+// AUTHENTIFICATION
+Route::middleware([RedirectIfAuthenticated::class])->group(function () {
+    Route::get('/login', [Backoffice\LoginController::class, 'show'])->name('login');
+    Route::post('/login', [Backoffice\LoginController::class, 'login'])->name('login.perform');
 
-//AUTHENTIFICATION
-Route::get('/login', [Backoffice\LoginController::class, 'show'])->name('login');
-Route::post('/login', [Backoffice\LoginController::class, 'login'])->name('login.perform');
+    // Affiche le formulaire d'inscription
+    Route::get('/register', [Backoffice\RegisterController::class, 'create'])->name('register');
+    // Gère la soumission du formulaire d'inscription
+    Route::post('/register', [Backoffice\RegisterController::class, 'store'])->name('register.perform');
 
-
-// Affiche le formulaire d'inscription
-Route::get('/register', [Backoffice\RegisterController::class, 'create'])->name('register');
-// Gère la soumission du formulaire d'inscription
-Route::post('/register', [Backoffice\RegisterController::class, 'store'])->name('register.perform');
-
-
-
-Route::get('/forgot-password', [Backoffice\ResetPassword::class, 'create'])->name('reset-password');
-Route::post('/forgot-password', [Backoffice\ResetPassword::class, 'send'])->name('password.email');
+    Route::get('/forgot-password', [Backoffice\ResetPassword::class, 'create'])->name('reset-password');
+    Route::post('/forgot-password', [Backoffice\ResetPassword::class, 'send'])->name('password.email');
+});
 
 Route::post('/logout', [Backoffice\LoginController::class, 'logout'])->name('logout');
 
-//routes du backoffice
-
-
+// Routes du backoffice
 Route::middleware(['auth'])->prefix('backoffice')->group(function () {
     Route::get('/dashboard', [Backoffice\HomeController::class, 'index'])->name('backoffice.dashboard');
-    Route::get('/profile',[Backoffice\HomeController::class, 'show'])->name('profile');
+    Route::get('/profile', [Backoffice\HomeController::class, 'show'])->name('profile');
 
     Route::get('/page/{page}', [Backoffice\PageController::class, 'index'])->name('page');
     Route::get('/virtual-reality', [Backoffice\PageController::class, 'vr'])->name('page.vr');

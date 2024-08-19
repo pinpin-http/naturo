@@ -16,7 +16,12 @@
                 <a href="{{ url('/price') }}" class="nav-item nav-link {{ request()->is('price') ? 'active-page' : '' }}">Tarifs</a>   
                 <a href="{{ url('/contact') }}" class="nav-item nav-link {{ request()->is('contact') ? 'active-page' : '' }}">Contact</a>
             </div>
-            <a href="{{ url('/login') }}" class="btn btn-primary d-none d-lg-block">Connexion/Inscription</a>
+            
+            @auth
+                <a href="{{ url('/backoffice/dashboard') }}" class="btn btn-primary d-none d-lg-block">Dashboard</a>
+            @else
+                <a href="{{ url('/login') }}" class="btn btn-primary d-none d-lg-block">Connexion/Inscription</a>
+            @endauth
         </div>
     </nav>
 </div>

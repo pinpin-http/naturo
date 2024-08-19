@@ -164,7 +164,7 @@
                                     <a class="dropdown-item border-radius-md" href="javascript:;">
                                         <div class="d-flex py-1">
                                             <div class="my-auto">
-                                                <img src="/img/team-2.jpg" class="avatar avatar-sm  ms-3 ">
+                                                <img src="../images/backoffice/team-2.jpg" class="avatar avatar-sm  ms-3 ">
                                             </div>
                                             <div class="d-flex flex-column justify-content-center">
                                                 <h6 class="text-sm font-weight-normal mb-1">
@@ -182,7 +182,7 @@
                                     <a class="dropdown-item border-radius-md" href="javascript:;">
                                         <div class="d-flex py-1">
                                             <div class="my-auto">
-                                                <img src="/img/small-logos/logo-spotify.svg"
+                                                <img src="../images/backoffice/small-logos/logo-spotify.svg"
                                                     class="avatar avatar-sm bg-gradient-dark  ms-3 ">
                                             </div>
                                             <div class="d-flex flex-column justify-content-center">
@@ -649,7 +649,7 @@
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Romina Hadid">
-                                                        <img alt="Image placeholder" src="/img/team-2.jpg">
+                                                        <img alt="Image placeholder" src="../images/backoffice/team-2.jpg">
                                                     </a>
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
@@ -697,7 +697,7 @@
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Romina Hadid">
-                                                        <img alt="Image placeholder" src="/img/team-2.jpg">
+                                                        <img alt="Image placeholder" src="../images/backoffice/team-2.jpg">
                                                     </a>
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
@@ -771,7 +771,7 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div>
-                                                        <img src="/img/small-logos/logo-spotify.svg"
+                                                        <img src="../images/backoffice/small-logos/logo-spotify.svg"
                                                             class="avatar avatar-sm ms-3">
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">

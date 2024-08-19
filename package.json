@@ -27,6 +27,7 @@
         "@popperjs/core": "^2.11.8",
         "animate.css": "^4.1.1",
         "bootstrap": "^5.3.3",
+        "chart": "^0.1.2",
         "counterup2": "^2.0.2",
         "jquery": "^3.7.1",
         "jquery.easing": "^1.4.1",

@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Backoffice;
 use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Http\Controllers\Backoffice\UserController;
 
 // Routes Frontoffice
 Route::get('/', function () {
@@ -65,3 +67,17 @@ Route::middleware(['auth'])->prefix('backoffice')->group(function () {
     Route::get('/sign-in', [Backoffice\PageController::class, 'signin'])->name('page.signin');
     Route::get('/sign-up', [Backoffice\PageController::class, 'signup'])->name('page.signup');
 });
+
+
+Route::middleware(['auth', 'role:admin'])->prefix('backoffice')->group(function () {
+    Route::get('/users', [UserController::class, 'index']);
+    Route::put('/users/{user}/role', [UserController::class, 'updateRole'])->name('users.updateRole');
+});
+
+Route::get('/test-route', function () {
+    return "Test route without middleware.";
+});
+
+Route::get('/test-middleware', function () {
+    return "Cette route utilise un middleware de test.";
+})->middleware('test.middleware');

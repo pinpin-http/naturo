@@ -10,7 +10,7 @@ use App\Http\Controllers\Backoffice\UserController;
 Route::get('/', function () {
     return view('frontoffice.index');
 })->name('home');
-
+ 
 Route::get('/about', function () {
     return view('frontoffice.about');
 });
@@ -79,5 +79,5 @@ Route::get('/test-route', function () {
 });
 
 Route::get('/test-middleware', function () {
-    return "Cette route utilise un middleware de test.";
+    return 'Middleware appliqué';
 })->middleware('test.middleware');

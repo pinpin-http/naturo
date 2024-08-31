@@ -27,8 +27,7 @@
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/",
-            "LaravelFrontendPresets\\ArgonPreset\\": "src/"
+            "Database\\Seeders\\": "database/seeders/"
 
         }
     },
@@ -54,14 +53,7 @@
             "@php artisan migrate --graceful --ansi"
         ]
     },
-    "extra": {
-        "laravel": {
-            "dont-discover": [],
-            "providers": [
-                "LaravelFrontendPresets\\ArgonPreset\\ArgonPresetServiceProvider"
-            ]
-        }
-    },
+   
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",

@@ -73,11 +73,3 @@ Route::middleware(['auth', 'role:admin'])->prefix('backoffice')->group(function 
     Route::get('/users', [UserController::class, 'index']);
     Route::put('/users/{user}/role', [UserController::class, 'updateRole'])->name('users.updateRole');
 });
-
-Route::get('/test-route', function () {
-    return "Test route without middleware.";
-});
-
-Route::get('/test-middleware', function () {
-    return 'Middleware appliqué';
-})->middleware('test.middleware');

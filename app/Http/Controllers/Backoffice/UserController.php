@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::with('roles')->get();
+        $users = User::with('roles')->paginate(15);
         $roles = Role::all();
 
         return view('backoffice.users.index', compact('users', 'roles'));

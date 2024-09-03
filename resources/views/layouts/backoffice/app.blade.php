@@ -54,6 +54,13 @@ Dashboard    </title>
     <script src="{{ asset('js/backoffice/popper.min.js') }}"></script>
     <script src="{{ asset('js/backoffice/smooth-scrollbar.min.js') }}"></script>
     <script src="{{ asset('js/backoffice/perfect-scrollbar.min.js') }}"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Popper.js, necessary for Bootstrap modals -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>

@@ -41,7 +41,10 @@ class UserController extends Controller
         return redirect()->route('backoffice.dashboard');
     }
  
-  
-    
+    public function profiles()
+    {
+        $users = User::all(); // Récupère tous les utilisateurs
+        return view('backoffice.profiles.index', compact('users'));
+    }
     
 }

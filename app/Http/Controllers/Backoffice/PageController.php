@@ -23,26 +23,18 @@ class PageController extends Controller
 
     public function vr()
     {
-        return view("pages.virtual-reality");
+        return view("backoffice.pages.virtual-reality");
     }
 
     public function rtl()
     {
-        return view("pages.rtl");
+        return view("backoffice.pages.rtl");
     }
 
     public function profile()
     {
-        return view("pages.profile-static");
+        return view("backoffice.pages.profile-static");
     }
 
-    public function signin()
-    {
-        return view("pages.sign-in-static");
-    }
-
-    public function signup()
-    {
-        return view("pages.sign-up-static");
-    }
+    
 }

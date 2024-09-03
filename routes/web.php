@@ -66,10 +66,12 @@ Route::middleware(['auth'])->prefix('backoffice')->group(function () {
     Route::get('/profile', [Backoffice\PageController::class, 'profile'])->name('page.profile');
     Route::get('/sign-in', [Backoffice\PageController::class, 'signin'])->name('page.signin');
     Route::get('/sign-up', [Backoffice\PageController::class, 'signup'])->name('page.signup');
+    
 });
 
 
 Route::middleware(['auth', 'role:admin'])->prefix('backoffice')->group(function () {
-    Route::get('/users', [UserController::class, 'index']);
+    Route::get('/users', [UserController::class, 'index'])->name('backoffice.users');
     Route::put('/users/{user}/role', [UserController::class, 'updateRole'])->name('users.updateRole');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 });

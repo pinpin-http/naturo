@@ -14,14 +14,19 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      mysql:
-        image: mysql:5.7
+      postgres:
+        image: postgres:13
         env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: laravel
+          POSTGRES_DB: laravel
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: root
         ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping --silent" --health-interval=10s --health-timeout=5s --health-retries=3
+          - 5432:5432
+        options: > 
+          --health-cmd="pg_isready -U root" 
+          --health-interval=10s 
+          --health-timeout=5s 
+          --health-retries=3
 
     steps:
     - uses: actions/checkout@v4
@@ -29,7 +34,7 @@ jobs:
     - name: Set up PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.3.9' # or any other version you are using
+        php-version: '8.3.9' # Ou la version PHP que vous utilisez
         extensions: mbstring, intl, bcmath
         ini-values: post_max_size=256M, max_execution_time=300
         coverage: xdebug
@@ -58,7 +63,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '16' # or any other version you are using
+        node-version: '16' # ou une autre version
 
     - name: Cache Node.js modules
       uses: actions/cache@v3
@@ -74,11 +79,17 @@ jobs:
     - name: Compile assets
       run: npm run production
 
+    - name: Run cache migration
+      run: php artisan cache:table
+
+    - name: Clear cache
+      run: php artisan cache:clear
+
     - name: Run migrations
       env:
-        DB_CONNECTION: mysql
+        DB_CONNECTION: pgsql
         DB_HOST: 127.0.0.1
-        DB_PORT: 3306
+        DB_PORT: 5432
         DB_DATABASE: laravel
         DB_USERNAME: root
         DB_PASSWORD: root

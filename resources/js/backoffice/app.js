@@ -2156,7 +2156,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./resources/js/app.js":
+/***/ "./resources/js/backoffice/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
@@ -20235,7 +20235,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 /***/ }),
 
-/***/ "./resources/scss/argon-dashboard.scss":
+/***/ "./resources/scss/backoffice/argon-dashboard.scss":
 /*!*********************************************!*\
   !*** ./resources/scss/argon-dashboard.scss ***!
   \*********************************************/

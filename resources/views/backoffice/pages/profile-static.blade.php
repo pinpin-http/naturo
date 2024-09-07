@@ -2,12 +2,15 @@
 
 @section('content')
     @include('layouts.backoffice.navbars.auth.topnav', ['title' => 'Profile'])
+    
+    
+
     <div class="card shadow-lg mx-4 card-profile-bottom">
         <div class="card-body p-3">
             <div class="row gx-4">
                 <div class="col-auto">
                     <div class="avatar avatar-xl position-relative">
-                        <img src="/img/team-1.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                        <img src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : '/img/team-1.jpg' }}" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
                     </div>
                 </div>
                 <div class="col-auto my-auto">
@@ -17,154 +20,139 @@
                         </h5>
                         <p class="mb-0 font-weight-bold text-sm">
                             {{ Auth::user()->email }}
-                         </p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
-                    <div class="nav-wrapper position-relative end-0">
-                        <ul class="nav nav-pills nav-fill p-1" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link mb-0 px-0 py-1 active d-flex align-items-center justify-content-center "
-                                    data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="true">
-                                    <i class="ni ni-app"></i>
-                                    <span class="ms-2">App</span>
-                                </a>
-                            </li>
-                           
-                            <li class="nav-item">
-                                <a class="nav-link mb-0 px-0 py-1 d-flex align-items-center justify-content-center "
-                                    data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
-                                    <i class="ni ni-settings-gear-65"></i>
-                                    <span class="ms-2">Settings</span>
-                                </a>
-                            </li>
-                        </ul>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+<!-- Affichage des messages de succès, erreur, et info -->
+    @if (session('success'))
+        <div class="alert alert-success text-center col-md-8 offset-md-2" id="success-alert"style="color: white; font-weight: bold; width: 60%; margin-top:2%;"">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if (session('error'))
+            <div id="errorMessage" class="alert alert-danger col-md-8 offset-md-2"  style="color: white; font-weight: bold; width: 60%; margin-top:2%;">
+                        {{ session('error') }}
+        </div>
+    @endif
+
+    @if (session('info'))
+        <div class="alert alert-info text-center col-md-8 offset-md-2" id="info-alert" style="color: white; font-weight: bold; width: 60%; margin-top:2%;">
+            {{ session('info') }}
+        </div>
+    @endif
+
     <div class="container-fluid py-4">
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header pb-0">
                         <div class="d-flex align-items-center">
-                            <p class="mb-0">Editer mon profile</p>
-                            <button class="btn btn-primary btn-sm ms-auto">Parametres</button>
+                            <p class="mb-0">Editer mon profil</p>
                         </div>
                     </div>
                     <div class="card-body">
-                        <p class="text-uppercase text-sm">Mes Information</p>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="example-text-input" class="form-control-label">Nom d'utilisateur</label>
-                                    <input class="form-control" type="text" value="{{ Auth::user()->username }}">
+                        <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+
+                            <p class="text-uppercase text-sm">Mes Informations</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="username" class="form-control-label">Nom d'utilisateur</label>
+                                        <input class="form-control" type="text" name="username" placeholder="{{ Auth::user()->username }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email" class="form-control-label">Adresse e-mail</label>
+                                        <input class="form-control" type="email" name="email" placeholder="{{ Auth::user()->email }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="firstname" class="form-control-label">Prénom</label>
+                                        <input class="form-control" type="text" name="firstname" placeholder="{{ Auth::user()->firstname }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="lastname" class="form-control-label">Nom</label>
+                                        <input class="form-control" type="text" name="lastname" placeholder="{{ Auth::user()->lastname }}">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="example-text-input" class="form-control-label">Addresse e-mail</label>
-                                    <input class="form-control" type="email" value="{{ Auth::user()->email }}">
+                            <div class="form-group">
+                                <label for="date_of_birth">Date de naissance</label>
+                                <input type="date" name="date_of_birth" id="date_of_birth" class="form-control" value="{{ old('date_of_birth', Auth::user()->date_of_birth) }}">
+                            </div>
+
+                            <hr class="horizontal dark">
+                            <p class="text-uppercase text-sm">Informations de contact</p>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="address" class="form-control-label">Adresse</label>
+                                        <input class="form-control" type="text" name="address" placeholder="{{ Auth::user()->address }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="city" class="form-control-label">Ville</label>
+                                        <input class="form-control" type="text" name="city" placeholder="{{ Auth::user()->city }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="postal_code" class="form-control-label">Code postal</label>
+                                        <input class="form-control" type="text" name="postal_code" placeholder="{{ Auth::user()->postal_code }}">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="example-text-input" class="form-control-label">Prenom</label>
-                                    <input class="form-control" type="text" value="{{ Auth::user()->firstname }}">
+                            <hr class="horizontal dark">
+                            <p class="text-uppercase text-sm">Image de profil</p>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="profile_picture" class="form-control-label">Changer l'image de profil</label>
+                                        <input class="form-control" type="file" name="profile_picture">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="example-text-input" class="form-control-label">Nom</label>
-                                    <input class="form-control" type="text" value="{{ Auth::user()->lastname }}">
-                                </div>
+
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary">Mettre à jour le profil</button>
                             </div>
-                        </div>
-                        <hr class="horizontal dark">
-                        <p class="text-uppercase text-sm">Information de contact</p>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="example-text-input" class="form-control-label">Addresse</label>
-                                    <input class="form-control" type="text"
-                                        value="{{ Auth::user()->adress }}">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="example-text-input" class="form-control-label">Ville</label>
-                                    <input class="form-control" type="text" value="{{ Auth::user()->city }}">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="example-text-input" class="form-control-label">Code postale</label>
-                                    <input class="form-control" type="text" value="{{ Auth::user()->postal_code }}">
-                                </div>
-                            </div>
-                        </div>
-                        
+                        </form>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card card-profile">
-                    <img src="/img/bg-profile.jpg" alt="Image placeholder" class="card-img-top">
+                    <img src="/images/backoffice/bg-profile.jpg" alt="Image placeholder" class="card-img-top">
                     <div class="row justify-content-center">
                         <div class="col-4 col-lg-4 order-lg-2">
                             <div class="mt-n4 mt-lg-n6 mb-4 mb-lg-0">
                                 <a href="javascript:;">
-                                    <img src="../images/backoffice/team-2.jpg"
-                                        class="rounded-circle img-fluid border border-2 border-white">
+                                    <img src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : '../images/backoffice/team-2.jpg' }}" class="rounded-circle img-fluid border border-2 border-white">
                                 </a>
                             </div>
                         </div>
                     </div>
-                    <div class="card-header text-center border-0 pt-0 pt-lg-2 pb-4 pb-lg-3">
-                        <div class="d-flex justify-content-between">
-                            <a href="javascript:;" class="btn btn-sm btn-info mb-0 d-none d-lg-block">Connect</a>
-                            <a href="javascript:;" class="btn btn-sm btn-info mb-0 d-block d-lg-none"><i
-                                    class="ni ni-collection"></i></a>
-                            <a href="javascript:;"
-                                class="btn btn-sm btn-dark float-right mb-0 d-none d-lg-block">Message</a>
-                            <a href="javascript:;" class="btn btn-sm btn-dark float-right mb-0 d-block d-lg-none"><i
-                                    class="ni ni-email-83"></i></a>
-                        </div>
-                    </div>
+                    
                     <div class="card-body pt-0">
-                        <div class="row">
-                            <div class="col">
-                                <div class="d-flex justify-content-center">
-                                    <div class="d-grid text-center">
-                                        <span class="text-lg font-weight-bolder">22</span>
-                                        <span class="text-sm opacity-8">Friends</span>
-                                    </div>
-                                    <div class="d-grid text-center mx-4">
-                                        <span class="text-lg font-weight-bolder">10</span>
-                                        <span class="text-sm opacity-8">Photos</span>
-                                    </div>
-                                    <div class="d-grid text-center">
-                                        <span class="text-lg font-weight-bolder">89</span>
-                                        <span class="text-sm opacity-8">Comments</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="text-center mt-4">
-                            <h5>
-                                Mark Davis<span class="font-weight-light">, 35</span>
-                            </h5>
-                            <div class="h6 font-weight-300">
-                                <i class="ni location_pin mr-2"></i>Bucharest, Romania
+                            <h5>Bonjour {{ Auth::user()->firstname }} {{ Auth::user()->lastname }}<span class="font-weight-light"> {{ Auth::user()->age }}</span></h5>
+                            <p>Vous êtes <strong>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</strong>, né(e) le <strong>{{ date('d/m/Y', strtotime(Auth::user()->date_of_birth)) }}</strong> (âge: <strong>{{ \Carbon\Carbon::parse(Auth::user()->date_of_birth)->age }} ans</strong>). Vous résidez au <strong>{{  Auth::user()->address}}, {{ Auth::user()->city }}, {{ Auth::user()->postal_code }}</strong> et votre adresse e-mail est <strong>{{ Auth::user()->email }}</strong>.</p>
+
+                            <div class="h6 font-weight-300" style="color:#94a16c;">
+                               Si une des informations ci-dessus est erronée, merci de la modifier dans le formulaire.
                             </div>
-                            <div class="h6 mt-4">
-                                <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer
-                            </div>
-                            <div>
-                                <i class="ni education_hat mr-2"></i>University of Computer Science
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -172,4 +160,24 @@
         </div>
         @include('layouts.backoffice.footers.auth.footer')
     </div>
+
+    <!-- Script pour les messages de confirmation -->
+    <script>
+        setTimeout(function() {
+            let successAlert = document.getElementById('success-alert');
+            if (successAlert) {
+                successAlert.style.display = 'none';
+            }
+
+            let errorAlert = document.getElementById('error-alert');
+            if (errorAlert) {
+                errorAlert.style.display = 'none';
+            }
+
+            let infoAlert = document.getElementById('info-alert');
+            if (infoAlert) {
+                infoAlert.style.display = 'none';
+            }
+        }, 5000); // Le message disparaîtra après 5 secondes
+    </script>
 @endsection

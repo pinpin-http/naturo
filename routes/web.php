@@ -64,6 +64,7 @@ Route::middleware(['auth'])->prefix('backoffice')->group(function () {
     Route::get('/virtual-reality', [Backoffice\PageController::class, 'vr'])->name('page.vr');
     Route::get('/rtl', [Backoffice\PageController::class, 'rtl'])->name('page.rtl');
     Route::get('/profile', [Backoffice\PageController::class, 'profile'])->name('page.profile');
+    Route::put('/profile', [UserController::class, 'update'])->name('profile.update');
     Route::get('/sign-in', [Backoffice\PageController::class, 'signin'])->name('page.signin');
     Route::get('/sign-up', [Backoffice\PageController::class, 'signup'])->name('page.signup');
     

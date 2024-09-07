@@ -72,3 +72,12 @@
         </section>
     </main>
 @endsection
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var form = document.querySelector('form');
+        form.addEventListener('submit', function() {
+            var emailInput = document.querySelector('input[name="email"]');
+            emailInput.value = emailInput.value.trim(); // Supprime les espaces avant d'envoyer le formulaire
+        });
+    });
+</script>

@@ -18,9 +18,9 @@
             </div>
             
             @auth
-                <a href="{{ url('/backoffice/dashboard') }}" class="btn btn-primary d-none d-lg-block">Dashboard</a>
+                <a style="border-radius: 8px;" href="{{ url('/backoffice/dashboard') }}" class="btn btn-primary d-none d-lg-block">Dashboard</a>
             @else
-                <a href="{{ url('/login') }}" class="btn btn-primary d-none d-lg-block">Connexion/Inscription</a>
+                <a style="border-radius: 8px;" href="{{ url('/login') }}" class="btn btn-primary d-none d-lg-block">Connexion/Inscription</a>
             @endauth
         </div>
     </nav>

@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Backoffice;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\Password;
+use App\Models\UserActionLog;
 
 class LoginController extends Controller
 {
@@ -21,24 +20,56 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        // Valider les informations de connexion
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        // Tenter de connecter l'utilisateur avec les informations fournies
+        if (Auth::attempt($credentials)) {
+            // Régénérer la session pour éviter les attaques de fixation de session
             $request->session()->regenerate();
 
+            // Récupérer l'utilisateur connecté
+            $user = Auth::user();
+
+            // Enregistrer un log de connexion
+            UserActionLog::create([
+                'user_id' => $user->id,
+                'action' => 'Connexion',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            // Vérifier si l'utilisateur a complété son profil
+            if (!$user->profile_complete) {
+                return redirect()->route('page.profile')->with('info', 'Veuillez compléter votre profil.');
+            }
+
+            // Si le profil est déjà complété, rediriger vers le tableau de bord
             return redirect()->intended('backoffice/dashboard');
         }
 
+        // Si les informations d'authentification sont incorrectes, renvoyer une erreur
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => 'Les informations d\'identification ne correspondent pas à nos enregistrements.',
         ]);
     }
 
     public function logout(Request $request)
     {
+        $user = Auth::user();
+
+        // Enregistrer un log de déconnexion
+        UserActionLog::create([
+            'user_id' => $user->id,
+            'action' => 'Déconnexion',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // Déconnexion de l'utilisateur
         Auth::logout();
 
         $request->session()->invalidate();

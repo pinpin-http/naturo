@@ -1,0 +1,88 @@
+<?php
+
+return [
+    'accepted'             => 'Le :attribute doit être accepté.',
+    'active_url'           => "Le :attribute n'est pas une URL valide.",
+    'after'                => 'Le :attribute doit être une date postérieure au :date.',
+    'after_or_equal'       => 'Le :attribute doit être une date postérieure ou égale au :date.',
+    'alpha'                => 'Le :attribute ne doit contenir que des lettres.',
+    'alpha_dash'           => 'Le :attribute ne doit contenir que des lettres, chiffres et tirets.',
+    'alpha_num'            => 'Le :attribute ne doit contenir que des lettres et chiffres.',
+    'array'                => 'Le :attribute doit être un tableau.',
+    'before'               => 'Le :attribute doit être une date antérieure au :date.',
+    'before_or_equal'      => 'Le :attribute doit être une date antérieure ou égale au :date.',
+    'between'              => [
+        'numeric' => 'Le :attribute doit être entre :min et :max.',
+        'file'    => 'Le :attribute doit être entre :min et :max kilo-octets.',
+        'string'  => 'Le :attribute doit être entre :min et :max caractères.',
+        'array'   => 'Le :attribute doit avoir entre :min et :max éléments.',
+    ],
+    'boolean'              => 'Le champ :attribute doit être vrai ou faux.',
+    'confirmed'            => 'La confirmation du :attribute ne correspond pas.',
+    'date'                 => 'Le :attribute n\'est pas une date valide.',
+    'date_format'          => 'Le :attribute ne correspond pas au format :format.',
+    'different'            => 'Le :attribute et :other doivent être différents.',
+    'digits'               => 'Le :attribute doit avoir :digits chiffres.',
+    'digits_between'       => 'Le :attribute doit avoir entre :min et :max chiffres.',
+    'dimensions'           => 'Les dimensions de l\'image :attribute sont invalides.',
+    'distinct'             => 'Le champ :attribute a une valeur en double.',
+    'email'                => 'Le :attribute doit être une adresse e-mail valide.',
+    'exists'               => 'Le :attribute sélectionné est invalide.',
+    'file'                 => 'Le :attribute doit être un fichier.',
+    'filled'               => 'Le champ :attribute doit avoir une valeur.',
+    'gt'                   => [
+        'numeric' => 'Le :attribute doit être supérieur à :value.',
+        'file'    => 'Le :attribute doit être supérieur à :value kilo-octets.',
+        'string'  => 'Le :attribute doit être supérieur à :value caractères.',
+        'array'   => 'Le :attribute doit avoir plus de :value éléments.',
+    ],
+    'image'                => 'Le :attribute doit être une image.',
+    'in'                   => 'Le :attribute sélectionné est invalide.',
+    'in_array'             => 'Le champ :attribute n\'existe pas dans :other.',
+    'integer'              => 'Le :attribute doit être un entier.',
+    'ip'                   => 'Le :attribute doit être une adresse IP valide.',
+    'ipv4'                 => 'Le :attribute doit être une adresse IPv4 valide.',
+    'ipv6'                 => 'Le :attribute doit être une adresse IPv6 valide.',
+    'json'                 => 'Le :attribute doit être un document JSON valide.',
+    'max'                  => [
+        'numeric' => 'Le :attribute ne peut pas être supérieur à :max.',
+        'file'    => 'Le :attribute ne peut pas être supérieur à :max kilo-octets.',
+        'string'  => 'Le :attribute ne peut pas dépasser :max caractères.',
+        'array'   => 'Le :attribute ne peut pas avoir plus de :max éléments.',
+    ],
+    'min'                  => [
+        'numeric' => 'Le :attribute doit être au moins :min.',
+        'file'    => 'Le :attribute doit être au moins de :min kilo-octets.',
+        'string'  => 'Le :attribute doit avoir au moins :min caractères.',
+        'array'   => 'Le :attribute doit avoir au moins :min éléments.',
+    ],
+    'not_in'               => 'Le :attribute sélectionné est invalide.',
+    'numeric'              => 'Le :attribute doit être un nombre.',
+    'password'             => 'Le mot de passe est incorrect.',
+    'present'              => 'Le champ :attribute doit être présent.',
+    'regex'                => 'Le format du :attribute est invalide.',
+    'required'             => 'Le champ :attribute est obligatoire.',
+    'unique'               => 'Le :attribute a déjà été pris.',
+    'url'                  => 'Le format du :attribute est invalide.',
+
+    // Custom messages
+    'custom' => [
+        'password' => [
+            'min' => 'Le mot de passe doit contenir au moins :min caractères.',
+        ],
+        'email' => [
+            'unique' => 'Cet email est déjà pris.',
+        ],
+    ],
+
+    // Attribute labels
+    'attributes' => [
+        'firstname' => 'prénom',
+        'lastname' => 'nom',
+        'email' => 'adresse e-mail',
+        'password' => 'mot de passe',
+        'username' => 'nom d\'utilisateur',
+        'city' => 'ville',
+        'postal_code' => 'code postal',
+    ],
+];

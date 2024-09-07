@@ -4,14 +4,13 @@
     @include('layouts.backoffice.navbars.guest.navbar')
     <main class="main-content  mt-0">
         <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg"
-            style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signup-cover.jpg'); background-position: top;">
+            style="background-image: url('images/backoffice/bg-image-register.jpg'); background-position: top;">
             <span class="mask bg-gradient-dark opacity-6"></span>
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-5 text-center mx-auto">
-                        <h1 class="text-white mb-2 mt-5">Welcome!</h1>
-                        <p class="text-lead text-white">Use these awesome forms to login or create new account in your
-                            project for free.</p>
+                        <h1 class="text-white mb-2 mt-5">Bienvenue!</h1>
+                        <p class="text-lead text-white">Intéressé par la naturopathie ? Créez votre compte pour commencer!</p>
                     </div>
                 </div>
             </div>
@@ -21,9 +20,9 @@
                 <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
                     <div class="card z-index-0">
                         <div class="card-header text-center pt-4">
-                            <h5>Register with</h5>
+                            <h5>S'inscrire avec </h5>
                         </div>
-                        <div class="row px-xl-5 px-sm-4 px-3">
+                         <div class="row px-xl-5 px-sm-4 px-3">
                             <div class="col-3 ms-auto px-1">
                                 <a class="btn btn-outline-light w-100" href="javascript:;">
                                     <svg width="24px" height="32px" viewBox="0 0 64 64" version="1.1">
@@ -77,67 +76,90 @@
                             <div class="mt-2 position-relative text-center">
                                 <p
                                     class="text-sm font-weight-bold mb-2 text-secondary text-border d-inline z-index-2 bg-white px-3">
-                                    or
+                                    ou
                                 </p>
                             </div>
                         </div>
                         <div class="card-body">
-    <form method="POST" action="{{ route('register.perform') }}">
-        @csrf
+                        <div class="card-body">
+                            <form method="POST" action="{{ route('register.perform') }}">
+                                @csrf
 
-        <!-- First Name -->
-        <div class="flex flex-col mb-3">
-            <input type="text" name="firstname" class="form-control" placeholder="First Name" aria-label="First Name" value="{{ old('firstname') }}" >
-            @error('firstname') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
-        </div>
+                                <!-- First Name -->
+                                <div class="flex flex-col mb-3">
+                                    <input type="text" name="firstname" class="form-control" placeholder="Prénom" aria-label="First Name" value="{{ old('firstname') }}" >
+                                    @error('firstname') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+                                </div>
 
-        <!-- Last Name -->
-        <div class="flex flex-col mb-3">
-            <input type="text" name="lastname" class="form-control" placeholder="Last Name" aria-label="Last Name" value="{{ old('lastname') }}" >
-            @error('lastname') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
-        </div>
+                                <!-- Last Name -->
+                                <div class="flex flex-col mb-3">
+                                    <input type="text" name="lastname" class="form-control" placeholder="Nom" aria-label="Last Name" value="{{ old('lastname') }}" >
+                                    @error('lastname') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+                                </div>
 
-        <!-- Username -->
-        <div class="flex flex-col mb-3">
-            <input type="text" name="username" class="form-control" placeholder="Username" aria-label="Username" value="{{ old('username') }}" >
-            @error('username') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
-        </div>
+                                <!-- Username -->
+                                <div class="flex flex-col mb-3">
+                                    <input type="text" name="username" class="form-control" placeholder="Nom d'utilisateur" aria-label="Username" value="{{ old('username') }}" >
+                                    @error('username') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+                                </div>
 
-        <!-- Email -->
-        <div class="flex flex-col mb-3">
-            <input type="email" name="email" class="form-control" placeholder="Email" aria-label="Email" value="{{ old('email') }}" >
-            @error('email') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
-        </div>
+                                <!-- Email -->
+                                <div class="flex flex-col mb-3">
+                                    <input type="email" name="email" class="form-control" placeholder="Email" aria-label="Email" value="{{ old('email') }}" >
+                                    @error('email') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+                                </div>
 
-        <!-- Password -->
-        <div class="flex flex-col mb-3">
-            <input type="password" name="password" class="form-control" placeholder="Password" aria-label="Password">
-            @error('password') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
-        </div>
+                               <!-- Password -->
+                                <div class="flex flex-col mb-3 position-relative">
+                                    <input type="password" name="password" id="password" class="form-control" placeholder="Password" aria-label="Password">
+                                    <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"></span>
+                                    @error('password') <p class='text-danger text-xs pt-1'>{{ $message }}</p> @enderror
+                                </div>
 
-        <!-- Terms and Conditions -->
-        <div class="form-check form-check-info text-start">
-            <input class="form-check-input" type="checkbox" name="terms" id="flexCheckDefault" >
-            <label class="form-check-label" for="flexCheckDefault">
-                I agree to the <a href="javascript:;" class="text-dark font-weight-bolder">Terms and Conditions</a>
-            </label>
-            @error('terms') <p class='text-danger text-xs'> {{ $message }} </p> @enderror
-        </div>
 
-        <!-- Submit Button -->
-        <div class="text-center">
-            <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign up</button>
-        </div>
+                                <!-- Confirm Password -->
+                                <div class="flex flex-col mb-3 position-relative">
+                                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Confirm Password" aria-label="Confirm Password">
+                                    <span toggle="#password_confirmation" class="fa fa-fw fa-eye field-icon toggle-password" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"></span>
+                                    @error('password_confirmation') <p class='text-danger text-xs pt-1'>{{ $message }} </p> @enderror
+                                </div>
 
-        <!-- Already have an account? -->
-        <p class="text-sm mt-3 mb-0">Already have an account? <a href="{{ route('login') }}" class="text-dark font-weight-bolder">Sign in</a></p>
-    </form>
-</div>
+                                <!-- Terms and Conditions -->
+                                <div class="form-check form-check-info text-start">
+                                    <input class="form-check-input" type="checkbox" name="terms" id="flexCheckDefault" >
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        I agree to the <a href="javascript:;" class="text-dark font-weight-bolder">Terms and Conditions</a>
+                                    </label>
+                                    @error('terms') <p class='text-danger text-xs'> {{ $message }} </p> @enderror
+                                </div>
 
+                                <!-- Submit Button -->
+                                <div class="text-center">
+                                    <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Inscription</button>
+                                </div>
+
+                                <!-- Already have an account? -->
+                                <p class="text-sm mt-3 mb-0">Vous avez déjà un compte? <a href="{{ route('login') }}" class="text-dark font-weight-bolder">Connexion</a></p>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
     @include('layouts.backoffice.footers.guest.footer')
+
+    <!-- Script for showing/hiding passwords -->
+ <script>
+    document.querySelectorAll('.toggle-password').forEach(item => {
+        item.addEventListener('click', function () {
+            const input = document.querySelector(this.getAttribute('toggle'));
+            const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+            input.setAttribute('type', type);
+            this.classList.toggle('fa-eye-slash'); // Change l'icône lorsqu'on affiche le mot de passe
+        });
+    });
+</script>
+
+
 @endsection

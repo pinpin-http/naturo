@@ -10,6 +10,8 @@
 Dashboard    </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
     <!-- Nucleo Icons -->
     
     <!--  <link href="./css/nucleo-icons.css" rel="stylesheet" />

@@ -10,7 +10,7 @@
             <div class="row gx-4">
                 <div class="col-auto">
                     <div class="avatar avatar-xl position-relative">
-                        <img src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : '/img/team-1.jpg' }}" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                        <img src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : '../images/backoffice/placeholder-profile.jpg' }}" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
                     </div>
                 </div>
                 <div class="col-auto my-auto">
@@ -120,6 +120,9 @@
                                     <div class="form-group">
                                         <label for="profile_picture" class="form-control-label">Changer l'image de profil</label>
                                         <input class="form-control" type="file" name="profile_picture">
+                                          @error('profile_picture')
+            <p class="text-danger">{{ $message }}</p> <!-- Affiche le message d'erreur -->
+        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -138,7 +141,7 @@
                         <div class="col-4 col-lg-4 order-lg-2">
                             <div class="mt-n4 mt-lg-n6 mb-4 mb-lg-0">
                                 <a href="javascript:;">
-                                    <img src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : '../images/backoffice/team-2.jpg' }}" class="rounded-circle img-fluid border border-2 border-white">
+                                    <img src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : '../images/backoffice/placeholder-profile.jpg' }}" class="rounded-circle img-fluid border border-2 border-white">
                                 </a>
                             </div>
                         </div>
@@ -147,7 +150,10 @@
                     <div class="card-body pt-0">
                         <div class="text-center mt-4">
                             <h5>Bonjour {{ Auth::user()->firstname }} {{ Auth::user()->lastname }}<span class="font-weight-light"> {{ Auth::user()->age }}</span></h5>
-                            <p>Vous êtes <strong>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</strong>, né(e) le <strong>{{ date('d/m/Y', strtotime(Auth::user()->date_of_birth)) }}</strong> (âge: <strong>{{ \Carbon\Carbon::parse(Auth::user()->date_of_birth)->age }} ans</strong>). Vous résidez au <strong>{{  Auth::user()->address}}, {{ Auth::user()->city }}, {{ Auth::user()->postal_code }}</strong> et votre adresse e-mail est <strong>{{ Auth::user()->email }}</strong>.</p>
+<p>
+    Vous êtes <strong>{{ Auth::user()->firstname ?? '(à compléter)' }} {{ Auth::user()->lastname ?? '(à compléter)' }}</strong>, né(e) le <strong>{{ Auth::user()->date_of_birth ? date('d/m/Y', strtotime(Auth::user()->date_of_birth)) : '(à compléter)' }}</strong> (âge: <strong>{{ Auth::user()->date_of_birth ? \Carbon\Carbon::parse(Auth::user()->date_of_birth)->age . ' ans' : '(à compléter)' }}</strong>). 
+    Vous résidez au <strong>{{ Auth::user()->address ?? '(à compléter)' }}, {{ Auth::user()->city ?? '(à compléter)' }}, {{ Auth::user()->postal_code ?? '(à compléter)' }}</strong> et votre adresse e-mail est <strong>{{ Auth::user()->email ?? '(à compléter)' }}</strong>.
+</p>
 
                             <div class="h6 font-weight-300" style="color:#94a16c;">
                                Si une des informations ci-dessus est erronée, merci de la modifier dans le formulaire.

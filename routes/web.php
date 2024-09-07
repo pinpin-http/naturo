@@ -61,8 +61,6 @@ Route::middleware(['auth'])->prefix('backoffice')->group(function () {
     Route::get('/profile', [Backoffice\HomeController::class, 'show'])->name('profile');
 
     Route::get('/page/{page}', [Backoffice\PageController::class, 'index'])->name('page');
-    Route::get('/virtual-reality', [Backoffice\PageController::class, 'vr'])->name('page.vr');
-    Route::get('/rtl', [Backoffice\PageController::class, 'rtl'])->name('page.rtl');
     Route::get('/profile', [Backoffice\PageController::class, 'profile'])->name('page.profile');
     Route::put('/profile', [UserController::class, 'update'])->name('profile.update');
     Route::get('/sign-in', [Backoffice\PageController::class, 'signin'])->name('page.signin');
@@ -72,6 +70,7 @@ Route::middleware(['auth'])->prefix('backoffice')->group(function () {
 
 
 Route::middleware(['auth', 'role:admin'])->prefix('backoffice')->group(function () {
+    Route::get('/logs', [Backoffice\LogController::class, 'index'])->name('logs.index');
     Route::get('/users', [UserController::class, 'index'])->name('backoffice.users');
     Route::put('/users/{user}/role', [UserController::class, 'updateRole'])->name('users.updateRole');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');

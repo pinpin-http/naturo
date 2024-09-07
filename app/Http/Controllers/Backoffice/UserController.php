@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Backoffice;
+
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -8,6 +9,7 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\UserActionLog;
 
 class UserController extends Controller
 {
@@ -18,38 +20,52 @@ class UserController extends Controller
 
         return view('backoffice.users.index', compact('users', 'roles'));
     }
-    //changer role
 
+    // Changer de rôle
     public function updateRole(Request $request, User $user)
     {
         $user->syncRoles($request->role);
+
+        // Log de l'action
+        UserActionLog::create([
+            'user_id' => Auth::id(),
+            'action' => 'Changement de rôle pour ' . $user->username . ' en ' . $request->role,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
         return redirect()->back()->with('success', 'Rôle mis à jour avec succès.');
     }
 
-
-    //suprimmer user
+    // Supprimer un utilisateur
     public function destroy(User $user, Request $request)
     {
         // Récupérer l'utilisateur admin avec le username "admin"
         $admin = User::where('username', 'admin')->first();
-    
+
         // Vérification du mot de passe administrateur
         $adminPassword = $request->input('password');
         if (!Hash::check($adminPassword, $admin->password)) {
             return redirect()->back()->with('error', 'Mot de passe incorrect');
         }
-    
+
+        // Log de l'action de suppression
+        UserActionLog::create([
+            'user_id' => Auth::id(),
+            'action' => 'Suppression de l\'utilisateur ' . $user->username,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
         // Supprimer l'utilisateur
         $user->delete();
-    
+
         return redirect()->route('backoffice.dashboard');
     }
- 
-
     public function update(Request $request)
     {
         $user = Auth::user();
-    
+        
         // Validation des champs
         $request->validate([
             'username' => 'nullable|string|max:255',
@@ -62,63 +78,85 @@ class UserController extends Controller
             'postal_code' => 'nullable|string|max:10',
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-    
+        
         // Gestion de l'upload de l'image de profil
         if ($request->hasFile('profile_picture')) {
             // Supprimer l'ancienne image si elle existe
             if ($user->profile_picture) {
                 Storage::disk('public')->delete($user->profile_picture);
             }
-    
+        
             // Enregistrer la nouvelle image
             $imagePath = $request->file('profile_picture')->store('profile_pictures', 'public');
             $user->profile_picture = $imagePath;
         }
-     // Vérification si l'email existe déjà dans la base de données, sauf pour l'utilisateur actuel
-     if (User::where('email', $request->input('email'))->where('id', '!=', $user->id)->exists()) {
-        return redirect()->back()->with('error', 'Cette adresse e-mail est déjà utilisée.');
-    }
-        // Mise à jour uniquement si un champ est modifié
-        $modifications = [];
     
+        // Préparation pour capturer les modifications
+        $modifications = [];
+        
         if ($request->filled('username') && $user->username !== $request->input('username')) {
+            $modifications['username'] = [$user->username, $request->input('username')];
             $user->username = $request->input('username');
-            $modifications[] = 'username';
         }
     
         if ($request->filled('email') && $user->email !== $request->input('email')) {
+            $modifications['email'] = [$user->email, $request->input('email')];
             $user->email = $request->input('email');
-            $modifications[] = 'email';
         }
     
         if ($request->filled('firstname') && $user->firstname !== $request->input('firstname')) {
+            $modifications['firstname'] = [$user->firstname, $request->input('firstname')];
             $user->firstname = $request->input('firstname');
-            $modifications[] = 'firstname';
         }
     
         if ($request->filled('lastname') && $user->lastname !== $request->input('lastname')) {
+            $modifications['lastname'] = [$user->lastname, $request->input('lastname')];
             $user->lastname = $request->input('lastname');
-            $modifications[] = 'lastname';
         }
     
         if ($request->filled('address') && $user->address !== $request->input('address')) {
+            $modifications['address'] = [$user->address, $request->input('address')];
             $user->address = $request->input('address');
-            $modifications[] = 'address';
         }
     
         if ($request->filled('city') && $user->city !== $request->input('city')) {
+            $modifications['city'] = [$user->city, $request->input('city')];
             $user->city = $request->input('city');
-            $modifications[] = 'city';
         }
     
         if ($request->filled('postal_code') && $user->postal_code !== $request->input('postal_code')) {
+            $modifications['postal_code'] = [$user->postal_code, $request->input('postal_code')];
             $user->postal_code = $request->input('postal_code');
-            $modifications[] = 'postal_code';
         }
     
         if ($request->filled('date_of_birth') && $user->date_of_birth !== $request->input('date_of_birth')) {
+            $modifications['date_of_birth'] = [$user->date_of_birth, $request->input('date_of_birth')];
             $user->date_of_birth = $request->input('date_of_birth');
-            $modifications[] = 'date_of_birth';
+        }
+    
+        // Si des modifications ont été faites, les enregistrer dans le log
+        foreach ($modifications as $key => $values) {
+            UserActionLog::create([
+                'user_id' => $user->id,
+                'action' => ucfirst($key) . ' modifié : ' . $values[0] . ' → ' . $values[1],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+    
+        // Vérification si le profil est complet
+        if (
+            $user->username &&
+            $user->email &&
+            $user->firstname &&
+            $user->lastname &&
+            $user->address &&
+            $user->city &&
+            $user->postal_code
+        ) {
+            $user->profile_complete = true;
+        } else {
+            $user->profile_complete = false;
         }
     
         // Si aucune donnée n'a été modifiée

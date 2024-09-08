@@ -86,6 +86,12 @@
                                     </div>
                                 </div>
                             </div>
+                               <!-- Bouton pour réinitialiser le mot de passe -->
+                        <div class="mt-4">
+                            <a href="{{ route('reset-password') }}" class="btn btn-primary">
+                                Réinitialiser le mot de passe
+                            </a>
+                        </div>
                             <div class="form-group">
                                 <label for="date_of_birth">Date de naissance</label>
                                 <input type="date" name="date_of_birth" id="date_of_birth" class="form-control" value="{{ old('date_of_birth', Auth::user()->date_of_birth) }}">

@@ -15,11 +15,13 @@ class RedirectIfAuthenticated
      * @return mixed
      */
     public function handle($request, Closure $next)
-    {
-        if (Auth::check()) {
-            return redirect('/backoffice/dashboard');
-        }
-
-        return $next($request);
+{
+    // Si l'utilisateur est connecté et tente d'accéder à la route de réinitialisation de mot de passe
+    if (Auth::check() && !$request->is('forgot-password')) {
+        return redirect('/backoffice/dashboard');
     }
+
+    return $next($request);
+}
+
 }

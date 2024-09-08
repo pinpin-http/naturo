@@ -6,6 +6,11 @@ use App\Http\Controllers\Backoffice;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Controllers\Backoffice\UserController;
 
+
+
+Auth::routes(['verify' => true]);
+
+
 // Routes Frontoffice
 Route::get('/', function () {
     return view('frontoffice.index');
@@ -49,8 +54,14 @@ Route::middleware([RedirectIfAuthenticated::class])->group(function () {
     // Gère la soumission du formulaire d'inscription
     Route::post('/register', [Backoffice\RegisterController::class, 'store'])->name('register.perform');
 
-    Route::get('/forgot-password', [Backoffice\ResetPassword::class, 'create'])->name('reset-password');
+    //Gère la reinitialisation des mdps
+    Route::get('/reset/{token}', [Backoffice\ResetPassword::class, 'showResetForm'])->name('password.reset');
+    // Route pour traiter la réinitialisation de mot de passe
+    Route::post('/reset-password', [Backoffice\ResetPassword::class, 'reset'])->name('password.update');
+
+    Route::get('/forgot-password', [Backoffice\ResetPassword::class, 'show'])->name('reset-password');
     Route::post('/forgot-password', [Backoffice\ResetPassword::class, 'send'])->name('password.email');
+    
 });
 
 Route::post('/logout', [Backoffice\LoginController::class, 'logout'])->name('logout');

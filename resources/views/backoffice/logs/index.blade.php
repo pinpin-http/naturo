@@ -41,6 +41,7 @@
             </thead>
             <tbody>
                 @foreach($logs as $log)
+                    <!-- Appliquer la couleur en fonction du type de log -->
                     <tr style="background-color: {{ $log->log_color ?? '#fff' }};">
                         <td>{{ $log->user->username ?? 'Utilisateur supprimé' }}</td>
                         <td>{{ $log->action }}</td>
@@ -58,8 +59,8 @@
                                 Aucun détail
                             @endif
                         </td>
-                        <td>{{ $log->created_at->format('d/m/Y') }}</td>
-                        <td>{{ $log->created_at->format('H:i') }}</td>
+                        <td>{{ $log->created_at->timezone('Europe/Paris')->format('d/m/Y') }}</td> <!-- Assure-toi que la timezone est correcte -->
+                        <td>{{ $log->created_at->timezone('Europe/Paris')->format('H:i') }}</td>
                     </tr>
                 @endforeach
             </tbody>

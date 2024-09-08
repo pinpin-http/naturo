@@ -10,8 +10,14 @@ class UserActionLog extends Model
     use HasFactory;
    
     // Autoriser l'assignation en masse pour ces champs
-    protected $fillable = ['user_id', 'action', 'created_at', 'updated_at'];
-      // Définir la relation entre UserActionLog et User
+    protected $fillable = [
+        'user_id',
+        'action',
+        'details', 
+        'log_color', 
+        'created_at',
+        'updated_at'
+    ];      // Définir la relation entre UserActionLog et User
       public function user()
       {
           return $this->belongsTo(User::class);

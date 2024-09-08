@@ -34,13 +34,19 @@ class LoginController extends Controller
             // Récupérer l'utilisateur connecté
             $user = Auth::user();
 
-            // Enregistrer un log de connexion
+           // Enregistrer un log de connexion avec couleur jaune
             UserActionLog::create([
                 'user_id' => $user->id,
                 'action' => 'Connexion',
+                'details' => json_encode([
+                    'Utilisateur' => $user->username,
+                    'Action' => 'Connexion',
+                ]), // Stocker les détails sous forme de tableau associatif
+                'log_color' => 'yellow', // Couleur jaune pour la connexion
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
+
 
             // Vérifier si l'utilisateur a complété son profil
             if (!$user->profile_complete) {
@@ -61,13 +67,19 @@ class LoginController extends Controller
     {
         $user = Auth::user();
 
-        // Enregistrer un log de déconnexion
+       // Enregistrer un log de déconnexion avec couleur jaune
         UserActionLog::create([
             'user_id' => $user->id,
             'action' => 'Déconnexion',
+            'details' => json_encode([
+                'Utilisateur' => $user->username,
+                'Action' => 'Déconnexion',
+            ]), // Stocker les détails sous forme de tableau associatif
+            'log_color' => 'yellow', // Couleur jaune pour la déconnexion
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
 
         // Déconnexion de l'utilisateur
         Auth::logout();

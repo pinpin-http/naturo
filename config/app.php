@@ -67,8 +67,8 @@ return [
     |
     */
 
-    'timezone' => env('APP_TIMEZONE', 'UTC'),
-
+'timezone' => 'Europe/Paris', // ou tout autre fuseau horaire correspondant à ta localisation
+    
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration

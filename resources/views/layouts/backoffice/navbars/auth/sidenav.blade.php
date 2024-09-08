@@ -39,22 +39,21 @@
                 </a>
             </li>
            
-            <!-- Navbar admin-->
             @if(auth()->user()->hasRole('admin'))
+                        <!-- Navbar admin-->
+
             <li class="nav-item">
                 <a class="nav-link {{ str_contains(request()->url(), 'users') == true ? 'active' : '' }}" href="{{ route('backoffice.users') }}">
-                    <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-single-02 text-info text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Gestion des Utilisateurs</span>
                 </a>
             </li>
 
-              <li class="nav-item">
-                <a class="nav-link {{ str_contains(request()->url(), 'users') == true ? 'active' : '' }}" href="{{ route('logs.index') }}>
-                    <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+             <li class="nav-item">
+                 <a class="nav-link {{ str_contains(request()->url(), 'logs') == true ? 'active' : '' }}" href="{{ route('logs.index') }}">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-single-02 text-info text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Logs d'activité</span>
@@ -63,8 +62,7 @@
 
              <li class="nav-item">
                 <a class="nav-link {{ str_contains(request()->url(), 'users') == true ? 'active' : '' }}" href=" ">
-                    <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-single-02 text-info text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Statistiques et rapports</span>
@@ -130,7 +128,7 @@
 
 
 
-        <!-- Navbar practicien-->
+        <!-- Navbar client-->
 
 
             @if(auth()->user()->hasRole('client'))

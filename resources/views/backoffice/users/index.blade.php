@@ -73,7 +73,7 @@
                             @method('DELETE')
 
                             <button type="submit" class="btn btn-danger">
-                                <i class="fa fa-trash"></i>X
+                                <i class="fa fa-trash"></i>
                             </button>
                             <!-- Champ caché pour le mot de passe -->
                             <input type="hidden" name="password" class="passwordField">

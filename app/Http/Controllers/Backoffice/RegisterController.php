@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Backoffice;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth; // Ajout pour l'authentification
+use Illuminate\Auth\Events\Registered; // Ajout pour l'événement d'inscription
 use App\Models\UserActionLog;
 
 class RegisterController extends Controller
@@ -25,7 +27,7 @@ class RegisterController extends Controller
             'terms' => 'required'
         ]);
 
-        // Créer un utilisateur
+        // Créer un utilisateur sans authentification immédiate
         $user = User::create([
             'firstname' => $attributes['firstname'],
             'lastname' => $attributes['lastname'],
@@ -33,10 +35,13 @@ class RegisterController extends Controller
             'email' => $attributes['email'],
             'password' => Hash::make($attributes['password']) // Utiliser Hash::make() pour hacher le mot de passe
         ]);
-
+        $user->sendEmailVerificationNotification();
         // Attribuer un rôle à l'utilisateur (ex: 'client')
         $user->assignRole('client');
 
+        // Envoyer l'email de vérification
+        event(new Registered($user)); // Déclenche l'événement d'inscription
+        auth()->login($user);
         // Log l'action de création de l'utilisateur avec les détails
         UserActionLog::create([
             'user_id' => $user->id,
@@ -47,15 +52,12 @@ class RegisterController extends Controller
                 'Nom d\'utilisateur' => $user->username,
                 'Email' => $user->email,
             ]),
-            'color' => 'green', // Utilise la couleur bleue pour une nouvelle inscription
+            'color' => 'green', // Utilise la couleur verte pour une nouvelle inscription
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
-        // Authentifier l'utilisateur
-        auth()->login($user);
-
-        // Redirection vers la page de profil avec un message flash
-        return redirect()->route('page.profile')->with('info', 'Veuillez compléter votre profil.');
+        // Redirection vers la page de l'inscription avec un message flash
+        return redirect()->route('verification.notice')->with('message', 'Veuillez vérifier votre email pour activer votre compte.');
     }
 }

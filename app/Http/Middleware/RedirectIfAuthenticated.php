@@ -12,16 +12,24 @@ class RedirectIfAuthenticated
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
+     * @param  string|null  $guard
      * @return mixed
      */
-    public function handle($request, Closure $next)
-{
-    // Si l'utilisateur est connecté et tente d'accéder à la route de réinitialisation de mot de passe
-    if (Auth::check() && !$request->is('forgot-password')) {
-        return redirect('/backoffice/dashboard');
+    public function handle($request, Closure $next, $guard = null)
+    {
+        if (Auth::guard($guard)->check()) {
+            $user = Auth::user();
+    
+            // Rediriger vers la page de vérification si l'utilisateur n'a pas encore vérifié son e-mail
+            if (!$user->hasVerifiedEmail()) {
+                return redirect('/email/verify');
+            }
+    
+            // Sinon, rediriger vers le tableau de bord
+            return redirect('/backoffice/dashboard');
+        }
+    
+        return $next($request);
     }
-
-    return $next($request);
-}
-
+    
 }

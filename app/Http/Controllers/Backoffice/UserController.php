@@ -68,16 +68,14 @@ UserActionLog::create([
 
         return redirect()->route('backoffice.dashboard');
     }
-
-    // Mettre à jour un utilisateur
     public function update(Request $request)
     {
         $user = Auth::user();
-
-        // Validation des champs
+    
+        // Validation des champs, y compris la vérification d'unicité du pseudo
         $request->validate([
-            'username' => 'nullable|string|max:255',
-            'email' => 'nullable|string|email|max:255',
+            'username' => 'nullable|string|max:255|unique:users,username,' . $user->id, // Exclure l'utilisateur actuel
+            'email' => 'nullable|string|email|max:255|unique:users,email,' . $user->id, // Vérification de l'unicité de l'email
             'firstname' => 'nullable|string|max:255',
             'lastname' => 'nullable|string|max:255',
             'date_of_birth' => 'nullable|date',
@@ -86,61 +84,69 @@ UserActionLog::create([
             'postal_code' => 'nullable|string|max:10',
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
+    
         // Gestion de l'upload de l'image de profil
         if ($request->hasFile('profile_picture')) {
             if ($user->profile_picture) {
                 Storage::disk('public')->delete($user->profile_picture);
             }
-
+    
             // Enregistrer la nouvelle image
             $imagePath = $request->file('profile_picture')->store('profile_pictures', 'public');
             $user->profile_picture = $imagePath;
         }
-
+    
         // Préparation pour capturer les modifications
         $modifications = [];
-
+    
         if ($request->filled('username') && $user->username !== $request->input('username')) {
             $modifications['username'] = [$user->username, $request->input('username')];
             $user->username = $request->input('username');
         }
-
+    
+        // Si l'email change, on marque l'email comme non vérifié et on envoie un nouveau lien de vérification
         if ($request->filled('email') && $user->email !== $request->input('email')) {
             $modifications['email'] = [$user->email, $request->input('email')];
+    
+            // Mettre à jour l'email et marquer l'utilisateur comme non vérifié
             $user->email = $request->input('email');
+            $user->email_verified_at = null; // Marquer comme non vérifié
+    
+            // Envoyer un nouvel email de vérification
+            $user->sendEmailVerificationNotification();
         }
-
+    
+        // Gestion des autres modifications
         if ($request->filled('firstname') && $user->firstname !== $request->input('firstname')) {
             $modifications['firstname'] = [$user->firstname, $request->input('firstname')];
             $user->firstname = $request->input('firstname');
         }
-
+    
         if ($request->filled('lastname') && $user->lastname !== $request->input('lastname')) {
             $modifications['lastname'] = [$user->lastname, $request->input('lastname')];
             $user->lastname = $request->input('lastname');
         }
-
+    
         if ($request->filled('address') && $user->address !== $request->input('address')) {
             $modifications['address'] = [$user->address, $request->input('address')];
             $user->address = $request->input('address');
         }
-
+    
         if ($request->filled('city') && $user->city !== $request->input('city')) {
             $modifications['city'] = [$user->city, $request->input('city')];
             $user->city = $request->input('city');
         }
-
+    
         if ($request->filled('postal_code') && $user->postal_code !== $request->input('postal_code')) {
             $modifications['postal_code'] = [$user->postal_code, $request->input('postal_code')];
             $user->postal_code = $request->input('postal_code');
         }
-
+    
         if ($request->filled('date_of_birth') && $user->date_of_birth !== $request->input('date_of_birth')) {
             $modifications['date_of_birth'] = [$user->date_of_birth, $request->input('date_of_birth')];
             $user->date_of_birth = $request->input('date_of_birth');
         }
-
+    
         // Si des modifications ont été faites, les enregistrer dans le log
         foreach ($modifications as $key => $values) {
             UserActionLog::create([
@@ -151,9 +157,8 @@ UserActionLog::create([
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
-            
         }
-
+    
         // Vérification si le profil est complet
         if (
             $user->username &&
@@ -168,15 +173,17 @@ UserActionLog::create([
         } else {
             $user->profile_complete = false;
         }
-
+    
         // Si aucune donnée n'a été modifiée
         if (empty($modifications) && !$request->hasFile('profile_picture')) {
             return redirect()->back()->with('info', 'Aucune donnée n\'a été modifiée.');
         }
-
+    
         // Enregistrer les modifications
         $user->save();
-
-        return redirect()->back()->with('success', 'Profil mis à jour avec succès.');
+    
+        return redirect()->back()->with('success', 'Profil mis à jour avec succès. Si vous avez changé votre email, veuillez vérifier votre nouvelle adresse.');
     }
+    
+    
 }

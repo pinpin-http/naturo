@@ -64,6 +64,8 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
+            'table' => 'users',
+            'verify' => true,  // Assurez-vous que cette ligne est bien présente
         ],
 
         // 'users' => [

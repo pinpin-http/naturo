@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Backoffice;
-
+use App\Models\User; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UserActionLog;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
@@ -89,4 +90,72 @@ class LoginController extends Controller
 
         return redirect('/login');
     }
+
+
+     // Rediriger vers Google
+     public function redirectToGoogle()
+     {
+         return Socialite::driver('google')->redirect();
+     }
+ 
+     // Gérer le callback de Google
+     public function handleGoogleCallback()
+     {
+         try {
+             $googleUser = Socialite::driver('google')->stateless()->user();
+             $user = User::where('email', $googleUser->getEmail())->first();
+     
+             if ($user) {
+                 // Si l'utilisateur existe mais n'a pas encore de Google ID, on l'ajoute
+                 if (is_null($user->google_id)) {
+                     $user->google_id = $googleUser->getId();
+                     $user->save();
+                      // Journaliser la connexion via Google
+                UserActionLog::create([
+                    'user_id' => $user->google_id,
+                    'action' => 'ajout de Google sur un compte classique',
+                    'details' => json_encode(['email' => $googleUser->getEmail()],['id'=>$user->google_id]),
+                    'log_color' => 'green', // Couleur verte pour une connexion
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+                 }
+     
+                 Auth::login($user);
+                  // Journaliser la connexion via Google
+            UserActionLog::create([
+                'user_id' => $user->id,
+                'action' => 'Connexion via Google',
+                'details' => json_encode(['email' => $googleUser->getEmail()]),
+                'log_color' => 'green', // Couleur verte pour une connexion
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+             } else {
+                 // Si l'utilisateur n'existe pas, on le crée
+                 $user = User::create([
+                     'name' => $googleUser->getName(),
+                     'email' => $googleUser->getEmail(),
+                     'password' => Hash::make(uniqid()),  // Mot de passe aléatoire
+                     'google_id' => $googleUser->getId(),
+                 ]);
+     
+                 Auth::login($user);
+                 UserActionLog::create([
+                    'user_id' => $user->id,
+                    'action' => 'Création de compte via Google',
+                    'details' => json_encode(['email' => $googleUser->getEmail()]),
+                    'log_color' => 'blue', // Couleur bleue pour une création de compte
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+                
+                }
+     
+             return redirect()->route('backoffice.dashboard');
+         } catch (Exception $e) {
+             return redirect()->route('login')->with('error', 'Échec de la connexion avec Google');
+         }
+     }
+     
 }

@@ -29,23 +29,43 @@ class ResetPassword extends Controller
     }
 
     public function send(Request $request)
-    {
-        // Valider l'email
-        $request->validate([
-            'email' => ['required', 'email']
-        ]);
-    
+{
+    // Valider l'email
+    $request->validate([
+        'email' => ['required', 'email']
+    ]);
+
+    // Rechercher l'utilisateur
+    $user = User::where('email', $request->email)->first();
+
+    // Si l'utilisateur existe, envoyer l'email et loguer l'action
+    if ($user) {
         // Envoyer l'email de réinitialisation de mot de passe
         $status = \Illuminate\Support\Facades\Password::sendResetLink(
             $request->only('email')
         );
-    
+
+        // Vérifier si l'email a été envoyé
         if ($status === \Illuminate\Support\Facades\Password::RESET_LINK_SENT) {
+            // Créer un log
+            UserActionLog::create([
+                'user_id' => $user->id,
+                'action' => 'Email de réinitialisation de mot de passe envoyé',
+                'details' => json_encode(['email' => $user->email]),
+                'log_color' => 'blue', // Log en bleu pour l'envoi de l'email
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
             return back()->with('success', 'Un e-mail a été envoyé à votre adresse pour réinitialiser votre mot de passe.');
         } else {
             return back()->withErrors(['email' => 'Aucun utilisateur trouvé avec cet e-mail.']);
         }
     }
+
+    return back()->withErrors(['email' => 'Aucun utilisateur trouvé avec cet e-mail.']);
+}
+
     
     public function reset(Request $request)
     {

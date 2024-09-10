@@ -28,7 +28,8 @@
         </div>
     </div>
 
-    <div style="position: relative; z-index: 100; background-color: white; border-radius: 10px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-top: 20px; margin-left: 20px;margin-right: 20px;">
+
+    <div style="color:white; position: relative; z-index: 100; background-color: white; border-radius: 10px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-top: 20px; margin-left: 20px;margin-right: 20px;">
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
@@ -42,7 +43,7 @@
             <tbody>
                 @foreach($logs as $log)
                     <!-- Appliquer la couleur en fonction du type de log -->
-                    <tr style="background-color: {{ $log->log_color ?? '#fff' }};">
+                    <tr style="background-color: {{ $log->log_color ?? '#fff' }};color: black;">
                         <td>{{ $log->user->username ?? 'Utilisateur supprimé' }}</td>
                         <td>{{ $log->action }}</td>
                         <td>
@@ -72,6 +73,17 @@
         {{ $logs->links() }}
     </div>
 
+    <!-- Formulaire de recherche par email -->
+    <div class="container" style="z-index:1000;">
+        <form action="{{ route('logs.search') }}" method="GET" class="form-inline mb-4" style="z-index:1000;">
+            <div class="form-group mr-3">
+                <label for="email" class="mr-2">Rechercher par e-mail :</label>
+                <input type="email" name="email" id="email" class="form-control" placeholder="Entrez l'e-mail de l'utilisateur" value="{{ request('email') }}">
+            </div>
+            <button type="submit" class="btn btn-primary">Rechercher</button>
+        </form>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -80,4 +92,11 @@
             @endif
         });
     </script>
+     <script>
+        // Rafraîchir la page toutes les 10 secondes (10 000 ms)
+        setInterval(function(){
+            location.reload();
+        }, 10000); // 10000 ms = 10 seconds
+    </script>
+
 @endsection

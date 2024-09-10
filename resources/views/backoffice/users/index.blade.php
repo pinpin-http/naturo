@@ -31,58 +31,61 @@
 
 
 <div style="position: relative; z-index: 100; background-color: white; border-radius: 10px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-top: 20px; margin-left: 20px;margin-right: 20px;">
-    <table class="table table-striped table-bordered">
-        <thead>
+   <table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Nom d'utilisateur</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Email</th>
+            <th>Rôle actuel</th>
+            <th>Action</th>
+            <th>Supprimer</th>
+            <th>Logs</th> <!-- Nouvelle colonne pour voir les logs -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($users as $user)
             <tr>
-                <th>Nom d'utilisateur</th>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Email</th>
-                <th>Rôle actuel</th>
-                <th>Action</th>
-                <th>Supprimer</th>
+                <td>{{ $user->username }}</td>
+                <td>{{ $user->lastname }}</td>
+                <td>{{ $user->firstname }}</td>
+                <td>{{ $user->email }}</td>
+                <td>{{ $user->roles->pluck('name')->implode(', ') }}</td>
+                <td>
+                    <form action="{{ route('users.updateRole', $user->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <select name="role" class="form-select">
+                            @foreach($roles as $role)
+                                <option value="{{ $role->name }}" {{ $user->roles->contains($role) ? 'selected' : '' }}>
+                                    {{ ucfirst($role->name) }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <button type="submit" class="btn btn-primary mt-2">Mettre à jour le rôle</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirmDelete(event, this)">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                        <!-- Champ caché pour le mot de passe -->
+                        <input type="hidden" name="password" class="passwordField">
+                    </form>
+                </td>
+                <td>
+                    <!-- Bouton pour voir les logs de l'utilisateur par email -->
+                    <a href="{{ route('logs.search', ['email' => $user->email]) }}" class="btn btn-info">Voir les logs de {{$user->username}}</a>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach($users as $user)
-                <tr>
-                    <td>{{ $user->username }}</td>
-                    <td>{{ $user->lastname }}</td>
-                    <td>{{ $user->firstname }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td>{{ $user->roles->pluck('name')->implode(', ') }}</td>
-                    <td>
-                        <form action="{{ route('users.updateRole', $user->id) }}" method="POST">
-                            @csrf
-                            @method('PUT')
+        @endforeach
+    </tbody>
+</table>
 
-                            <select name="role" class="form-select">
-                                @foreach($roles as $role)
-                                    <option value="{{ $role->name }}" {{ $user->roles->contains($role) ? 'selected' : '' }}>
-                                        {{ ucfirst($role->name) }}
-                                    </option>
-                                @endforeach
-                            </select>
-
-                            <button type="submit" class="btn btn-primary mt-2">Mettre à jour le rôle</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirmDelete(event, this)">
-                            @csrf
-                            @method('DELETE')
-
-                            <button type="submit" class="btn btn-danger">
-                                <i class="fa fa-trash"></i>
-                            </button>
-                            <!-- Champ caché pour le mot de passe -->
-                            <input type="hidden" name="password" class="passwordField">
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
 </div>
     <!-- Pagination -->
     <div class="d-flex justify-content-center">

@@ -46,7 +46,7 @@ class ForgotPassword extends Notification
     {
         $url = URL::temporarySignedRoute('change-password', now()->addHours(12) ,['id' => $this->token]);
         return (new MailMessage)
-                    ->line('Salut!')
+                    ->line('Bonjour!')
                     ->subject('Changement de mot de passe')
                     ->line('Vous recevez ce mail car vous avez fait une demande de reinitialisation de mot de passe sur notre plateforme')
                     ->action('Reinitialiser le mot de passe', $url )

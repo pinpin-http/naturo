@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="../images/backoffice/apple-icon.png">
-    <link rel="icon" type="image/png" href="../images/backoffice/favicon.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('images/backoffice/apple-icon.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/backoffice/favicon.png') }}">
     <title>
 Dashboard    </title>
     <!--     Fonts and icons     -->
@@ -23,7 +23,7 @@ Dashboard    </title>
     <link href="assets/css/nucleo-svg.css" rel="stylesheet" />-->
     
     <!-- CSS Files -->
-    <link id="pagestyle" href="../css/backoffice/app.css" rel="stylesheet" />
+    <link id="pagestyle" href="{{ asset('css/backoffice/app.css') }}" rel="stylesheet" />
 </head>
 
 <body class="{{ $class ?? '' }}">
@@ -76,7 +76,7 @@ Dashboard    </title>
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="../js/backoffice/app.js"></script>
+    <script src="{{ asset('js/backoffice/app.js') }}"></script>
     @stack('js');
 </body>
 

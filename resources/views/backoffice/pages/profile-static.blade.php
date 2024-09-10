@@ -65,14 +65,28 @@
                                     <div class="form-group">
                                         <label for="username" class="form-control-label">Nom d'utilisateur</label>
                                         <input class="form-control" type="text" name="username" placeholder="{{ Auth::user()->username }}">
+                                         @error('username')
+                                            <span class="text-danger">{{ $message }}</span> <!-- Affiche le message d'erreur pour le username -->
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="email" class="form-control-label">Adresse e-mail</label>
-                                        <input class="form-control" type="email" name="email" placeholder="{{ Auth::user()->email }}">
+                                        @if (is_null(Auth::user()->google_id)) 
+                                            <!-- Si l'utilisateur est classique (pas de google_id) -->
+                                            <input class="form-control" type="email" name="email" placeholder="{{ Auth::user()->email }}">
+                                            @error('email')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        @else
+                                            <!-- Si l'utilisateur a un compte Google, l'e-mail est en lecture seule -->
+                                            <input class="form-control" type="email" name="email" value="{{ Auth::user()->email }}" readonly>
+                                            email non modifiable car connexion avec service tiers
+                                        @endif
                                     </div>
                                 </div>
+
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="firstname" class="form-control-label">Prénom</label>

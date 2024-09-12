@@ -41,7 +41,7 @@
             <th>Rôle actuel</th>
             <th>Action</th>
             <th>Supprimer</th>
-            <th>Logs</th> <!-- Nouvelle colonne pour voir les logs -->
+            <th>Logs</th> 
         </tr>
     </thead>
     <tbody>

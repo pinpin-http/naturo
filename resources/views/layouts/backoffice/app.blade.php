@@ -24,6 +24,10 @@ Dashboard    </title>
     
     <!-- CSS Files -->
     <link id="pagestyle" href="{{ asset('css/backoffice/app.css') }}" rel="stylesheet" />
+    <!-- FullCalendar CSS -->
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet' />
+
+
 </head>
 
 <body class="{{ $class ?? '' }}">
@@ -59,9 +63,11 @@ Dashboard    </title>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
-<!-- Option 1: Bootstrap Bundle with Popper -->
+<!-- Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
+<!-- FullCalendar JS -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
 <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>

@@ -9,6 +9,7 @@ use App\Http\Controllers\Backoffice\HomeController;
 use App\Http\Controllers\Backoffice\LogController;
 use App\Http\Controllers\Backoffice\UserController;
 use App\Http\Controllers\Backoffice\PageController;
+use App\Http\Controllers\Backoffice\CalendarController;
 
 
 
@@ -107,4 +108,13 @@ Route::middleware(['auth', 'role:admin'])->prefix('backoffice')->group(function 
     Route::get('/users', [UserController::class, 'index'])->name('backoffice.users');
     Route::put('/users/{user}/role', [UserController::class, 'updateRole'])->name('users.updateRole');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+});
+
+Route::middleware(['auth', 'role:practitioner'])->prefix('backoffice')->group(function () {
+    Route::get('/calendar', [CalendarController::class, 'index'])->name('practicien.calendar');
+    Route::get('/calendar-events', [CalendarController::class, 'fetchEvents'])->name('calendar.fetch');
+    Route::post('/calendar-events', [CalendarController::class, 'storeEvent'])->name('calendar.store');
+    Route::post('/calendar-add', [CalendarController::class, 'addRdv'])->name('calendar.add');
+    Route::get('/get-creneaux-disponibles/{date}', [CalendarController::class, 'getCreneauxDisponibles']);
+
 });

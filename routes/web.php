@@ -9,8 +9,7 @@ use App\Http\Controllers\Backoffice\HomeController;
 use App\Http\Controllers\Backoffice\LogController;
 use App\Http\Controllers\Backoffice\UserController;
 use App\Http\Controllers\Backoffice\PageController;
-use App\Http\Controllers\Backoffice\CalendarController;
-
+use App\Http\Controllers\Backoffice\AppointmentController;
 
 
 
@@ -111,10 +110,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('backoffice')->group(function 
 });
 
 Route::middleware(['auth', 'role:practitioner'])->prefix('backoffice')->group(function () {
-    Route::get('/calendar', [CalendarController::class, 'index'])->name('practicien.calendar');
-    Route::get('/calendar-events', [CalendarController::class, 'fetchEvents'])->name('calendar.fetch');
-    Route::post('/calendar-events', [CalendarController::class, 'storeEvent'])->name('calendar.store');
-    Route::post('/calendar-add', [CalendarController::class, 'addRdv'])->name('calendar.add');
-    Route::get('/get-creneaux-disponibles/{date}', [CalendarController::class, 'getCreneauxDisponibles']);
+    Route::get('/appointments', [AppointmentController::class, 'index'])->name('appointments.index');
+    Route::post('/appointments/store', [AppointmentController::class, 'store'])->name('appointments.store');
+    Route::get('/appointments/fetch', [AppointmentController::class, 'fetchEvents'])->name('appointments.fetch');
+    Route::get('/appointments/get-slots', [AppointmentController::class, 'getSlots'])->name('appointments.get-slots');
+    Route::get('/appointments/get-daily-slots', [AppointmentController::class, 'getDailySlots'])->name('appointments.get-daily-slots');
+    Route::get('/appointments/get-available-slots', [AppointmentController::class, 'getAvailableSlots'])->name('appointments.get-available-slots');
+
 
 });

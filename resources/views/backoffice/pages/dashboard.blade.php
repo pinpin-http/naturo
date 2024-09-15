@@ -14,9 +14,7 @@
                                     <h5 class="font-weight-bolder">
                                         $53,000
                                     </h5>
-                                    @role('admin')
-    <p>Vous êtes un administrateur.</p>
-@endrole
+                        
 
                                     <p class="mb-0">
                                         <span class="text-success text-sm font-weight-bolder">+55%</span>

@@ -11,8 +11,6 @@ use App\Http\Controllers\Backoffice\UserController;
 use App\Http\Controllers\Backoffice\PageController;
 use App\Http\Controllers\Backoffice\AppointmentController;
 
-
-
 use App\Http\Controllers\Auth\VerificationController;
 
 Auth::routes(['verify' => true]); // Inclut les routes nécessaires pour la vérification des e-mails
@@ -22,20 +20,16 @@ Route::get('/home', function () {
 
 // Les routes qui ne nécessitent pas de vérification d'email
 Route::middleware([RedirectIfAuthenticated::class])->group(function () {
-
     // Connexion et inscription
     Route::get('/login', [LoginController::class, 'show'])->name('login');
     Route::post('/login', [LoginController::class, 'login'])->name('login.perform');
     Route::get('/register', [RegisterController::class, 'create'])->name('register');
     Route::post('/register', [RegisterController::class, 'store'])->name('register.perform');
-
     // Réinitialisation de mot de passe
     Route::get('/forgot-password', [ResetPassword::class, 'show'])->name('reset-password');
     Route::post('/forgot-password', [ResetPassword::class, 'send'])->name('password.email');
-    Route::get('/reset/{token}', [ResetPassword::class, 'showResetForm'])->name('backoffice.password.reset'); // Modifie le nom ici
+    Route::get('/reset/{token}', [ResetPassword::class, 'showResetForm'])->name('backoffice.password.reset'); 
     Route::post('/reset-password', [ResetPassword::class, 'reset'])->name('backoffice.password.update');
-    
-   
 });
 
 
@@ -44,9 +38,6 @@ Route::middleware([RedirectIfAuthenticated::class])->group(function () {
 Route::get('auth/google', [LoginController::class, 'redirectToGoogle'])->name('auth.google');
 // Gérer le callback de Google
 Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback']);
-
-
-
 
  // Vérification d'e-mail (ne doit pas être protégée par le middleware 'verified')
  Route::get('/email/verify', [VerificationController::class, 'show'])->name('verification.notice');

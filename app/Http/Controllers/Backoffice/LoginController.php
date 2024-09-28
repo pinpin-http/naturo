@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UserActionLog;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -111,14 +112,15 @@ class LoginController extends Controller
                      $user->google_id = $googleUser->getId();
                      $user->save();
                       // Journaliser la connexion via Google
-                UserActionLog::create([
-                    'user_id' => $user->google_id,
-                    'action' => 'ajout de Google sur un compte classique',
-                    'details' => json_encode(['email' => $googleUser->getEmail()],['id'=>$user->google_id]),
-                    'log_color' => 'green', // Couleur verte pour une connexion
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
+                      UserActionLog::create([
+                        'user_id' => $user->id, // Utilise l'ID de l'utilisateur enregistré
+                        'action' => 'ajout de Google sur un compte classique',
+                        'details' => json_encode(['email' => $googleUser->getEmail(), 'id' => $user->id]), // Corrige ici aussi
+                        'log_color' => 'green',
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                    
                  }
      
                  Auth::login($user);
@@ -132,14 +134,16 @@ class LoginController extends Controller
                 'updated_at' => now(),
             ]);
              } else {
-                 // Si l'utilisateur n'existe pas, on le crée
-                 $user = User::create([
-                     'name' => $googleUser->getName(),
-                     'email' => $googleUser->getEmail(),
-                     'password' => Hash::make(uniqid()),  // Mot de passe aléatoire
-                     'google_id' => $googleUser->getId(),
-                 ]);
-     
+                // Si l'utilisateur n'existe pas, on le crée
+                    $user = User::create([
+                        'username' => $googleUser->getNickname() ?: explode('@', $googleUser->getEmail())[0], // Utiliser le pseudo Google ou la partie avant '@' de l'email
+                        'firstname' => $googleUser->user['given_name'], // Récupérer le prénom depuis les données Google
+                        'lastname' => $googleUser->user['family_name'], // Récupérer le nom depuis les données Google
+                        'email' => $googleUser->getEmail(),
+                        'password' => Hash::make(uniqid()),  // Mot de passe aléatoire
+                        'google_id' => $googleUser->getId(),
+                    ]);
+
                  Auth::login($user);
                  UserActionLog::create([
                     'user_id' => $user->id,

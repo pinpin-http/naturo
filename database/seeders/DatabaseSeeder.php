@@ -24,3 +24,14 @@ class DatabaseSeeder extends Seeder
         ]);
     }
 }
+
+
+/*
+
+rendez vous suivi -> 30-45min
+
+bilan vitale -> 1h30
+
+L-M-M-J -> 15h-18h
+
+*/

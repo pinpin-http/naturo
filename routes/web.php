@@ -106,7 +106,8 @@ Route::middleware(['auth', 'role:practitioner'])->prefix('backoffice')->group(fu
     Route::get('/appointments/fetch', [AppointmentController::class, 'fetchEvents'])->name('appointments.fetch');
     Route::get('/appointments/get-available-slots', [AppointmentController::class, 'getAvailableSlots'])->name('appointments.get-available-slots');
     Route::get('appointments/get-daily-slots', [AppointmentController::class, 'getDailySlots']);
-        // Route pour la suppression d'un rendez-vous
-    Route::delete('/backoffice/appointments/{id}', [AppointmentController::class, 'destroy'])->name('appointments.destroy');
+    // Route pour la suppression d'un rendez-vous
+    Route::delete('/appointments/{id}', [AppointmentController::class, 'destroy'])->name('appointments.destroy');
+    Route::put('/appointments/{id}', [AppointmentController::class, 'update'])->name('appointments.update');
 
 });

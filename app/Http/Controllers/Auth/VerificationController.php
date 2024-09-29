@@ -13,3 +13,5 @@ class VerificationController extends Controller
       
     }
 }
+
+/* bilan vital = questionnaire */
